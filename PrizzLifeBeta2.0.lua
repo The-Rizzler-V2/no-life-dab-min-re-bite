@@ -87,6 +87,22 @@ local PrizzSettings = {
     Warns = true;
     ShowNotification = true;
   }; -- Debug prints, and warns.
+  LoopedCmds = {
+	AntiTase = false,
+	AutoGuns = false,
+	AutoReload = false,
+	AutoGunMod = false,
+	AutoRe = true,
+  };
+  GunMods = {
+	FireRate = 0,
+	ReloadTime = 0,
+	AccurateRange = true,
+	Range = 100000,
+	AutoFire = true,
+	ChargeTime = 0,
+	SpreadRadius = 0,
+  },
 }
 -- DEFAULT SETTINGS --
 
@@ -98,6 +114,7 @@ local Services = {
   rstorage = game:GetService("ReplicatedStorage");
   teams = game:GetService("Teams");
   ws = game:GetService("Workspace");
+  rsv = game:GetService("RunService"),
   tweenservice = game:GetService("TweenService");
   mps = game:GetService("MarketplaceService");
 }
@@ -981,6 +998,8 @@ end;
 }
 -- CORE FUNCTIONS --
 
+local antitazedb = false
+local rdb = false
 
 -- LIGHT FUNCTIONS --
 -- LightFunctions Table
@@ -1170,8 +1189,286 @@ local LightFunctions = {
 	task.wait(0.1)
 	hrp.CFrame = SavedPos
 end
+	AutoGuns = function(toggle)
+		if toggle == true then
+			Notif("Auto Guns","Enabled auto guns",4)
+		elseif toggle == false then
+			Notif("Auto Guns","Disabled auto guns",4)
+		end
+		task.spawn(function()
+			if toggle == true then
+				if game.Players.LocalPlayer.Team.Name == "Guards" then
+					LightFunctions.GiveGun("RemingtonGuards")
+				elseif game.Players.LocalPlayer.Team.Name == "Inmates" then
+					LightFunctions.GiveGun("RemingtonGuards")
+				elseif game.Players.LocalPlayer.Team.Name == "Criminals" then 
+					LightFunctions.GiveGun("RemingtonCrim")
+				end
+				task.wait(2)
+				LightFunctions.GiveGun("AK47")
+				task.wait(2)
+				LightFunctions.GiveGun("MP5")
+				task.wait(2)
+				LightFunctions.GiveGun("M4A1")
+				task.wait(2)
+				LightFunctions.GiveGun("Sniper")
+				task.wait(2)
+				LightFunctions.GiveGun("Revolver")
+			end
+		end)
+		local autogunscon = nil
+		if toggle == true then
+			autogunscon = Variables.player.CharacterAdded:Connect(function(c)
+				c:WaitForChild("HumanoidRootPart")
+				if toggle == true then
+					if game.Players.LocalPlayer.Team.Name == "Guards" then
+						LightFunctions.GiveGun("RemingtonGuards")
+					elseif game.Players.LocalPlayer.Team.Name == "Inmates" then
+						LightFunctions.GiveGun("RemingtonGuards")
+					elseif game.Players.LocalPlayer.Team.Name == "Criminals" then 
+						LightFunctions.GiveGun("RemingtonCrim")
+					end
+					task.wait(2)
+					LightFunctions.GiveGun("AK47")
+					task.wait(2)
+					LightFunctions.GiveGun("MP5")
+					task.wait(2)
+					LightFunctions.GiveGun("M4A1")
+					task.wait(2)
+					LightFunctions.GiveGun("Sniper")
+					task.wait(2)
+					LightFunctions.GiveGun("Revolver")
+				end
+			end)
+		end
+		if toggle == false then
+			if autogunscon ~= nil then
+				autogunscon:Disconnect()
+				autogunscon = nil
+			end
+		end
+	end,
+	AutoGunMod = function(toggle)
+		local autogunmodcon = nil
+		if toggle == true then
+			autogunmodcon = Services.rsv.RenderStepped:Connect(function()
+				if toggle == true then
+					task.spawn(function()
+						if Variables.player.Character then
+							for _,tool in pairs(Variables.player.Character:GetChildren()) do
+								if tool:IsA("Tool") then
+									if tool:GetAttribute("AutoFire") then
+										tool:SetAttribute("AutoFire",PrizzSettings.GunMods.AutoFire)
+									end
+									if tool:GetAttribute("FireRate") then
+										tool:SetAttribute("FireRate",PrizzSettings.GunMods.FireRate)
+									end
+									if tool:GetAttribute("AccurateRange") then
+										tool:SetAttribute("AccurateRange",PrizzSettings.GunMods.AccurateRange)
+									end
+									if tool:GetAttribute("ReloadTime") then
+										tool:SetAttribute("ReloadTime",PrizzSettings.GunMods.ReloadTime)
+									end
+									if tool:GetAttribute("Range") then
+										tool:SetAttribute("Range",PrizzSettings.GunMods.Range)
+									end
+									if tool:GetAttribute("ChargeTime") then
+										tool:SetAttribute("ChargeTime",PrizzSettings.GunMods.ChargeTime)
+									end
+									if tool:GetAttribute("SpreadRadius") then
+										tool:SetAttribute("SpreadRadius",PrizzSettings.GunMods.SpreadRadius)
+									end
+								end
+							end
+						end
+					end)
+					if Variables.player:FindFirstChild("Backpack") then
+						for _,tool in pairs(Variables.player.Backpack:GetChildren()) do
+							if tool:IsA("Tool") then
+								if tool:GetAttribute("AutoFire") then
+									tool:SetAttribute("AutoFire",PrizzSettings.GunMods.AutoFire)
+								end
+								if tool:GetAttribute("FireRate") then
+									tool:SetAttribute("FireRate",PrizzSettings.GunMods.FireRate)
+								end
+								if tool:GetAttribute("AccurateRange") then
+									tool:SetAttribute("AccurateRange",PrizzSettings.GunMods.AccurateRange)
+								end
+								if tool:GetAttribute("ReloadTime") then
+									tool:SetAttribute("ReloadTime",PrizzSettings.GunMods.ReloadTime)
+								end
+								if tool:GetAttribute("Range") then
+									tool:SetAttribute("Range",PrizzSettings.GunMods.Range)
+								end
+								if tool:GetAttribute("ChargeTime") then
+									tool:SetAttribute("ChargeTime",PrizzSettings.GunMods.ChargeTime)
+								end
+								if tool:GetAttribute("SpreadRadius") then
+									tool:SetAttribute("SpreadRadius",PrizzSettings.GunMods.SpreadRadius)
+								end
+							end
+						end
+					end
+				end
+			end)
+		end
+		if toggle == false then
+			if autogunmodcon ~= nil then
+				autogunmodcon:Disconnect()
+				autogunmodcon = nil
+			end
+		end
+	end,
+	AntiTase = function(toggle)
+		task.spawn(function()
+			if toggle == true then
+				local chr = Variables.player.Character or Variables.player.CharacterAdded:Wait()
+				local hum = chr:WaitForChild("Humanoid")
+				if antitasedb == false then
+			        antitasedb = true
+			        local ogws = hum.WalkSpeed
+			        repeat
+			            if math.random(-5,5) == 0 then
+			                rsv.RenderStepped:Wait()
+			            end
+			            if hum.WalkSpeed < 1 and not hum.Parent:FindFirstChildWhichIsA("BillboardGui",true) then
+			                hum.WalkSpeed = ogws
+			                task.spawn(function()
+			                    for _,anims in pairs(hum:GetPlayingAnimationTracks()) do
+			                        anims:Stop()
+			                    end
+			                end)
+			            end
+			        until antitasedb == false
+			    end
+			end
+		end)
+		local antitasecon
+		if toggle == true then
+			antitasecon = plr.CharacterAdded:Connect(function(c)
+			    antitasedb = false
+			    c:WaitForChild("Humanoid")
+			    local hum = c:WaitForChild("Humanoid")
+			    task.spawn(function()
+			        if antitasedb == false then
+			            antitasedb = true
+			            local ogws = hum.WalkSpeed
+			            repeat
+			                if math.random(-5,5) == 0 then
+			                    rsv.RenderStepped:Wait()
+			                end
+			                if hum.WalkSpeed < 1 and not hum.Parent:FindFirstChildWhichIsA("BillboardGui",true) then
+			                    hum.WalkSpeed = ogws
+			                    task.spawn(function()
+			                        for _,anims in pairs(hum:GetPlayingAnimationTracks()) do
+			                            anims:Stop()
+			                        end
+			                    end)
+			                end
+			            until antitasedb == false
+			        end
+			    end)
+			end)
+		end
+		if toggle == false then
+			if antitasecon ~= nil then
+				antitasecon:Disconnect()
+				antitasecon = nil
+			end
+		end
+	end,
+	AutoReload = function(toggle)
+		local function reloadgun()
+		    task.spawn(function()
+		        for _, f in next, getgc(true) do
+		            if typeof(f) == "function" and islclosure(f) and debug.info(f, "n") == "reload" then
+		                f()
+		                break
+		            end
+		        end
+		    end)
+		end
+		local autoreloadcon = nil
+		if toggle == true then
+			autoreloadcon = Services.rsv.RenderStepped:Connect(function()
+				local chr = plr.Character or plr.CharacterAdded:Wait()
+				if chr:FindFirstChildOfClass("Tool") then
+			        if chr:FindFirstChildOfClass("Tool"):GetAttribute("CurrentAmmo") then
+			            local ammo = chr:FindFirstChildOfClass("Tool"):GetAttribute("CurrentAmmo")
+			            if ammo <= 0 then
+			                reloadgun()
+			            end
+			        end
+			    end
+			end)
+		end
+		if toggle == false then
+			if autoreloadcon ~= nil then
+				autoreloadcon:Disconnect()
+				autoreloadcon = nil
+			end
+		end
+	end,
+	AutoRe = function(toggle)
+		local curpos
+		if toggle == true then
+			task.spawn(function()
+				repeat
+					task.wait(1)
+					local hum = Variables.player.Character and Variables.player.Character:FindFirstChild("Humanoid") or nil
+        			if hum then
+			            if hum.Health > 0 then
+			                if rdb == false then
+			                    curpos = plr.Character.HumanoidRootPart.CFrame
+			                end
+			            end
+			        end
+				until toggle == false
+			end)
+		end
+		local autorecon = nil
+		if toggle == true
+			autorecon = Variables.player.CharacterAdded:Connect(function(c)
+				if toggle == true then
+					rdb = true
+				    c:WaitForChild("HumanoidRootPart")
+				    local root = c:FindFirstChild("HumanoidRootPart")
+				    root.CFrame = curpos
+				    rdb = false
+				end
+			end)
+		end
+	end,
+	ModGuns = function(Name,Arg)
+		if Variables.player.Character and Variables.player.Character:FindFirstChildOfClass("Tool") then
+			local gun = Variables.player.Character:FindFirstChildOfClass("Tool")
+			if gun:GetAttribute(Name) then
+				gun:SetAttribute(Name,Arg)
+			end
+		end
+		if Variables.player:FindFirstChild("Backpack") then
+			for _,gun in pairs(Variables.player.Backpack:GetChildren()) do
+				if gun:IsA("Tool") then
+					if gun:GetAttribute(Name) then
+						gun:SetAttribute(Name,Arg)
+					end
+				end
+			end
+		end
+	end
 }
 -- LIGHT FUNCTIONS --
+
+function StringToBool(str)
+	str = str:lower()
+	if str == "true" then
+		return true
+	elseif str == "false" then
+		return false
+	else
+		return nil
+	end
+end
 
 -- COMMANDS FUNCTIONS --
 local chatdebounce = false
@@ -1254,6 +1551,42 @@ local OnCommand = function(text)
 			LightFunctions.GiveGun("Sniper")
 	elseif cmd("revolver") or cmd("pistol") then
 			LightFunctions.GiveGun("Revolver")
+	elseif cmd("autoguns") or cmd("ag") then
+		PrizzSettings.LoopedCmds.AutoGuns = StringToBool(Args[2]) or not PrizzSettings.LoopedCmds.AutoGuns
+		LightFunctions.AutoGuns(PrizzSettings.LoopedCmds.AutoGuns)
+	elseif cmd("automod") or cmd("autogunmod") or cmd("agm") or cmd("am") then
+		PrizzSettings.LoopedCmds.AutoGunMod = StringToBool(Args[2]) or not PrizzSettings.LoopedCmds.AutoGunMod
+		LightFunctions.AutoGunMod(PrizzSettings.LoopedCmds.AutoGunMod)
+	elseif cmd("antitase") or cmd("at") then
+		PrizzSettings.LoopedCmds.AntiTase = StringToBool(Args[2]) or not PrizzSettings.LoopedCmds.AntiTase
+		LightFunctions.AntiTaze(PrizzSettings.LoopedCmds.AntiTase)
+	elseif cmd("autoreload") or cmd("ar") then
+		PrizzSettings.LoopedCmds.AutoReload = StringToBool(Args[2]) or not PrizzSettings.LoopedCmds.AutoReload
+		LightFunctions.AutoReload(PrizzSettings.LoopedCmds.AutoReload)
+	elseif cmd("autore") or cmd("autorespawn") or cmd("are") then
+		PrizzSettings.LoopedCmds.AutoRe = StringToBool(Args[2]) or not PrizzSettings.LoopedCmds.AutoRe
+		LightFunctions.AutoRe(PrizzSettings.LoopedCmds.AutoRe)
+	elseif cmd("firerate") or cmd("fr") then
+		PrizzSettings.GunMods.FireRate = tonumber(Args[2]) or PrizzSettings.GunMods.FireRate
+		LightFunctions.ModGuns("FireRate",PrizzSettings.GunMods.FireRate)
+	elseif cmd("reloadtime") or cmd("rt") then
+		PrizzSettings.GunMods.ReloadTime = tonumber(Args[2]) or PrizzSettings.GunMods.ReloadTime
+		LightFunctions.ModGuns("ReloadTime",PrizzSettings.GunMods.ReloadTime)
+	elseif cmd("range") or cmd("rg") then
+		PrizzSettings.GunMods.Range = tonumber(Args[2]) or PrizzSettings.GunMods.Range
+		LightFunctions.ModGuns("Range",PrizzSettings.GunMods.Range)
+	elseif cmd("spreadradius") or cmd("spread") or cmd("sr") then
+		PrizzSettings.GunMods.SpreadRadius = tonumber(Args[2]) or PrizzSettings.GunMods.SpreadRadius
+		LightFunctions.ModGuns("SpreadRadius",PrizzSettings.GunMods.SpreadRadius)
+	elseif cmd("chargetime") or cmd("ct") then
+		PrizzSettings.GunMods.ChargeTime = tonumber(Args[2]) or PrizzSettings.GunMods.ChargeTime
+		LightFunctions.ModGuns("ChargeTime",PrizzSettings.GunMods.ChargeTime)
+	elseif cmd("accuraterange") or cmd("arg") then
+		PrizzSettings.GunMods.AccurateRange = StringToBool(Args[2]) or not PrizzSettings.GunMods.AccurateRange
+		LightFunctions.ModGuns("AccurateRange",PrizzSettings.GunMods.AccurateRange)
+	elseif cmd("autofire") or cmd("af") then
+		PrizzSettings.GunMods.AutoFire = StringToBool(Args[2]) or not PrizzSettings.GunMods.AutoFire
+		LightFunctions.ModGuns("AutoFire",PrizzSettings.GunMods.AutoFire)
 	else
 		Notif("Error", tostring(Args[1]) .. " is not a valid command.")
 	end
@@ -1312,6 +1645,19 @@ AddList("m4 / m4a1", "Obtain the gun M4A1 (REQUIRES GAMEPASS)", false) --V
 AddList("fal", "Obtain the gun FAL (REQUIRES GAMEPASS)", false) --V
 AddList("sniper / m700", "Obtain the gun Sniper (REQUIRES GAMEPASS)", false) --V
 AddList("revolver / pistol", "Obtain the gun Revolver (REQUIRES GAMEPASS)", false) --V
+AddList("autoguns / ag [true/false optional]","Gives you all guns on respawn",false)
+AddList("autoreload / ar [true/false optional]","Makes your gun reload automatically so you don't have to click again or press R",false)
+AddList("autogunmod / automod / am / agm [true/false optional]","Mods all your guns automatically",false)
+AddList("firerate / fr [number]","Changes all guns FireRate",false)
+AddList("autofire / af [true/false optional]","Changes all guns to be automatic",false)
+AddList("chargetime / ct [number]","This mod only works for sniper and taser but it makes it not slow at shooting",false)
+AddList("spreadradius / spread / sr [number]","Makes it so your guns bullets is straighter in direction",false)
+AddList("accuraterange / arg [true/false optional]","Makes your guns more accurate at far ranges",false)
+AddList("reloadtime / rt","Changes how long your guns take to reload",false)
+AddList("range / rg","Changes how far your bullets can go",false)
+AddList("SURVIVAL CMDS",false,true)
+AddList("autore / are [true/false optional]","Makes you spawn in the position you died",false)
+AddList("antitase / at [true/false optional]","Makes you basically immune to tases",false)
 if (PrizzSettings.ACBypass or (PrizzSettings.Debug.Active and PrizzSettings.Debug.ACBypass)) then
   AddList("TEAM CMDS", false, true) --TEAM CMDS
   AddList("guard / guards / gu", "Alias to team guards", false) --V
@@ -1464,4 +1810,5 @@ Notif("Time", "Loaded in " .. tostring(tick() - runtime) .. " second(s).", 6)
 
 --[[
 Vlaair tried to silence me. He warned me for "Advertising a shitscript", and he literally just shut down the original server.
+
 --]]
