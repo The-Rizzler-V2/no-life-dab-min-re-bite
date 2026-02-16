@@ -1310,7 +1310,7 @@ LightFunctions.GiveGun = function(itemname)
 		Notif("Error", "Item not found.",3)
 	end
 end
-LightFunctions.ModGuns = function(Name,Arg)
+LightFunctions.ModGuns = function(Name,Arg,DoNotif)
 	if Variables.player.Character and Variables.player.Character:FindFirstChildOfClass("Tool") then
 		local gun = Variables.player.Character:FindFirstChildOfClass("Tool")
 		if gun:GetAttribute(Name) then
@@ -1328,7 +1328,9 @@ LightFunctions.ModGuns = function(Name,Arg)
 			end
 		end)
 	end
-	Notif("Gun Mod","Successfully Modded guns: "..Name.." with value: "..tostring(Arg),5)
+	if DoNotif == true then
+		Notif("Gun Mod","Successfully Modded guns: "..Name.." with value: "..tostring(Arg),5)
+	end
 end
 -- LIGHT FUNCTIONS --
 
@@ -1414,13 +1416,13 @@ autogunmodcon = Services.rsv.Heartbeat:Connect(function()
 			if Variables.player.Character then
 				for _,tool in pairs(Variables.player.Character:GetChildren()) do
 					if tool:IsA("Tool") then
-						LightFunctions.ModGuns("AutoFire",PrizzSettings.GunMods.AutoFire)
-						LightFunctions.ModGuns("FireRate",PrizzSettings.GunMods.FireRate)
-						LightFunctions.ModGuns("AccurateRange",PrizzSettings.GunMods.AccurateRange)
-						LightFunctions.ModGuns("ReloadTime",PrizzSettings.GunMods.ReloadTime)
-						LightFunctions.ModGuns("Range",PrizzSettings.GunMods.Range)
-						LightFunctions.ModGuns("ChargeTime",PrizzSettings.GunMods.ChargeTime)
-						LightFunctions.ModGuns("SpreadRadius",PrizzSettings.GunMods.SpreadRadius)
+						LightFunctions.ModGuns("AutoFire",PrizzSettings.GunMods.AutoFire,false)
+						LightFunctions.ModGuns("FireRate",PrizzSettings.GunMods.FireRate,false)
+						LightFunctions.ModGuns("AccurateRange",PrizzSettings.GunMods.AccurateRange,false)
+						LightFunctions.ModGuns("ReloadTime",PrizzSettings.GunMods.ReloadTime,false)
+						LightFunctions.ModGuns("Range",PrizzSettings.GunMods.Range,false)
+						LightFunctions.ModGuns("ChargeTime",PrizzSettings.GunMods.ChargeTime,false)
+						LightFunctions.ModGuns("SpreadRadius",PrizzSettings.GunMods.SpreadRadius,false)
 					end
 				end
 			end
@@ -1428,13 +1430,13 @@ autogunmodcon = Services.rsv.Heartbeat:Connect(function()
 		if Variables.player:FindFirstChild("Backpack") then
 			for _,tool in pairs(Variables.player.Backpack:GetChildren()) do
 				if tool:IsA("Tool") then
-					LightFunctions.ModGuns("AutoFire",PrizzSettings.GunMods.AutoFire)
-					LightFunctions.ModGuns("FireRate",PrizzSettings.GunMods.FireRate)
-					LightFunctions.ModGuns("AccurateRange",PrizzSettings.GunMods.AccurateRange)
-					LightFunctions.ModGuns("ReloadTime",PrizzSettings.GunMods.ReloadTime)
-					LightFunctions.ModGuns("Range",PrizzSettings.GunMods.Range)
-					LightFunctions.ModGuns("ChargeTime",PrizzSettings.GunMods.ChargeTime)
-					LightFunctions.ModGuns("SpreadRadius",PrizzSettings.GunMods.SpreadRadius)
+					LightFunctions.ModGuns("AutoFire",PrizzSettings.GunMods.AutoFire,false)
+					LightFunctions.ModGuns("FireRate",PrizzSettings.GunMods.FireRate,false)
+					LightFunctions.ModGuns("AccurateRange",PrizzSettings.GunMods.AccurateRange,false)
+					LightFunctions.ModGuns("ReloadTime",PrizzSettings.GunMods.ReloadTime,false)
+					LightFunctions.ModGuns("Range",PrizzSettings.GunMods.Range,false)
+					LightFunctions.ModGuns("ChargeTime",PrizzSettings.GunMods.ChargeTime,false)
+					LightFunctions.ModGuns("SpreadRadius",PrizzSettings.GunMods.SpreadRadius,false)
 				end
 			end
 		end
