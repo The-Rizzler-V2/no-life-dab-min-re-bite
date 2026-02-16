@@ -48,18 +48,18 @@ end
 
 -- GAME CHECK
 if game.PlaceId ~= 155615604 then
-  print("Wrong Game, join Prison Life.")
-    return
+	print("Wrong Game, join Prison Life.")
+	return
 end
 -- GAME CHECK
 
 
 -- LOADED CHECK
-if workspace:FindFirstChild("PRIZZ LOADED SUCCESSFULLY") then
-	  warn("PrizzLife is already loaded")
+if workspace:FindFirstChild("PRIZZLIFEADMIN LOADED SUCCESSFULLY") then
+	warn("PrizzLife is already loaded")
 	return
 else
-  print("Prizzlife isn't already loaded, proceeding with execution.")
+	print("Prizzlife isn't already loaded, proceeding with execution.")
 end
 -- LOADED CHECK
 
@@ -74,35 +74,35 @@ local runtime = tick()
 
 -- DEFAULT SETTINGS --
 local PrizzSettings = {
-  DefaultPrefix = "?"; -- Prefix
-  JoinNotify = false; -- Join notification toggle
-  --AntiTase = false; -- AntiTase setting
-  ShittyExecutor = false; -- Detects if you have a shitty executor.
-  ACBypass = true; -- Enabled by Default
-  Debug = {
-    Active = false;
-    -- SETTINGS
-    ACBypass = true; -- Enabled by default
-    Prints = true;
-    Warns = true;
-    ShowNotification = true;
-  }; -- Debug prints, and warns.
-  LoopedCmds = {
-	AntiTase = false,
-	AutoGuns = false,
-	AutoReload = false,
-	AutoGunMod = false,
-	AutoRe = true,
-  };
-  GunMods = {
-	FireRate = 0,
-	ReloadTime = 0,
-	AccurateRange = true,
-	Range = 100000,
-	AutoFire = true,
-	ChargeTime = 0,
-	SpreadRadius = 0,
-  },
+	DefaultPrefix = "?"; -- Prefix
+	JoinNotify = false; -- Join notification toggle
+	--AntiTase = false; -- AntiTase setting
+	ShittyExecutor = false; -- Detects if you have a shitty executor.
+	ACBypass = true; -- Enabled by Default
+	Debug = {
+		Active = false;
+		-- SETTINGS
+		ACBypass = true; -- Enabled by default
+		Prints = true;
+		Warns = true;
+		ShowNotification = true;
+	}; -- Debug prints, and warns.
+	LoopedCmds = {
+		AntiTase = false,
+		AutoGuns = false,
+		AutoReload = false,
+		AutoGunMod = false,
+		AutoRe = true,
+	};
+	GunMods = {
+		FireRate = 0,
+		ReloadTime = 0,
+		AccurateRange = true,
+		Range = 100000,
+		AutoFire = true,
+		ChargeTime = 0,
+		SpreadRadius = 0,
+	},
 }
 -- DEFAULT SETTINGS --
 
@@ -110,20 +110,20 @@ local PrizzSettings = {
 -- SERVICES --
 -- Services Table
 local Services = {
-  players = game:GetService("Players");
-  rstorage = game:GetService("ReplicatedStorage");
-  teams = game:GetService("Teams");
-  ws = game:GetService("Workspace");
-  rsv = game:GetService("RunService"),
-  tweenservice = game:GetService("TweenService");
-  mps = game:GetService("MarketplaceService");
+	players = game:GetService("Players");
+	rstorage = game:GetService("ReplicatedStorage");
+	teams = game:GetService("Teams");
+	ws = game:GetService("Workspace");
+	rsv = game:GetService("RunService"),
+	tweenservice = game:GetService("TweenService");
+	mps = game:GetService("MarketplaceService");
 }
 -- SERVICES --
 
 
 -- PRIZZ FOLDER --
 -- Make Prizz folder
-Instance.new("Folder", game:GetService("Workspace")).Name = "PRIZZ LOADED SUCCESSFULLY"
+Instance.new("Folder", game:GetService("Workspace")).Name = "PRIZZLIFEADMIN LOADED SUCCESSFULLY"
 -- PRIZZ FOLDER --
 
 
@@ -303,13 +303,13 @@ local DraggifyFrame = function(frame, dragHandle)
 	local dragging
 	local dragStartPos
 	local startPos
-	
+
 	dragHandle.InputBegan:Connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 			dragging = true
 			dragStartPos = input.Position
 			startPos = frame.Position
-			
+
 			input.Changed:Connect(function()
 				if input.UserInputState == Enum.UserInputState.End then
 					dragging = false
@@ -317,7 +317,7 @@ local DraggifyFrame = function(frame, dragHandle)
 			end)
 		end
 	end)
-	
+
 	game:GetService("UserInputService").InputChanged:Connect(function(input)
 		if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
 			local delta = input.Position - dragStartPos
@@ -552,9 +552,9 @@ CloseButton.Activated:Connect(function()
 		local viewportSize = workspace.CurrentCamera.ViewportSize
 		local absPos = ClosedFrame.AbsolutePosition
 		local absSize = ClosedFrame.AbsoluteSize
-		
+
 		if absPos.X + absSize.X < 0 or absPos.X > viewportSize.X or
-		   absPos.Y + absSize.Y < 0 or absPos.Y > viewportSize.Y then
+			absPos.Y + absSize.Y < 0 or absPos.Y > viewportSize.Y then
 			return false
 		end
 		return true
@@ -608,7 +608,7 @@ CloseButton.Activated:Connect(function()
 	con = ClosedImageButton.Activated:Connect(function()
 		if not isDragging then
 			savedClosedFramePosition = ClosedFrame.Position
-			
+
 			con:Disconnect()
 			ClosedFrame:Destroy()
 			MainFrame.Visible = true
@@ -678,7 +678,6 @@ end)
 
 -- GUI FUNCTION LIST END
 
-
 -- NOTIFICATIONS --
 -- Notification Stuff
 local Frame23 = PLAdmin:FindFirstChild("NotifContainer") or Instance.new("Frame")
@@ -698,7 +697,7 @@ layout.VerticalAlignment = Enum.VerticalAlignment.Bottom
 -- Notification Function
 local function Notif(args, text, duration)
 	duration = duration or 3
-	
+
 	local notif = Instance.new("Frame")
 	notif.Name = "notifFrame"
 	notif.Size = UDim2.new(1, 0, 0, 0)
@@ -767,7 +766,7 @@ local function Notif(args, text, duration)
 	pBarBG.BackgroundTransparency = 0.9
 	pBarBG.BorderSizePixel = 0
 	pBarBG.Parent = notif
-	
+
 	local pBar = Instance.new("Frame")
 	pBar.Size = UDim2.new(1, 0, 1, 0)
 	pBar.BackgroundColor3 = Color3.fromRGB(160, 180, 255)
@@ -776,7 +775,7 @@ local function Notif(args, text, duration)
 
 	-- ANIMATION
 	local tweenInfo = TweenInfo.new(0.4, Enum.EasingStyle.Quart, Enum.EasingDirection.Out)
-	
+
 	-- Open
 	Services.tweenservice:Create(notif, tweenInfo, {Size = UDim2.new(1, 0, 0, 75), BackgroundTransparency = 0.2}):Play()
 	Services.tweenservice:Create(stroke, tweenInfo, {Transparency = 0.8}):Play()
@@ -795,7 +794,7 @@ local function Notif(args, text, duration)
 		Services.tweenservice:Create(title, tweenInfo, {TextTransparency = 1}):Play()
 		Services.tweenservice:Create(desc, tweenInfo, {TextTransparency = 1}):Play()
 		Services.tweenservice:Create(image, tweenInfo, {ImageTransparency = 1}):Play()
-		
+
 		closeTween:Play()
 		closeTween.Completed:Connect(function()
 			notif:Destroy()
@@ -808,9 +807,9 @@ end
 -- VARIABLES
 -- Variables Table
 local Variables = {
-  plr = Services.players:FindFirstChild("LocalPlayer");
-  player = game.Players.LocalPlayer; -- fix for chatted connections.
-  CurrentPrefix = "?"; -- Current prefix
+	plr = Services.players:FindFirstChild("LocalPlayer");
+	player = game.Players.LocalPlayer; -- fix for chatted connections.
+	CurrentPrefix = "?"; -- Current prefix
 }
 -- VARIABLES --
 
@@ -818,11 +817,11 @@ local Variables = {
 -- EVENTS --
 -- Events Table
 local Events = {
-  -- Team Event
-  TeamEve = Services.rstorage.Remotes:FindFirstChild("RequestTeamChange");
-  -- Item Event
-  ItemEve = Services.rstorage.Remotes:FindFirstChild("InteractWithItem");
-    TaseEve = game:GetService("ReplicatedStorage").GunRemotes.PlayerTased;
+	-- Team Event
+	TeamEve = Services.rstorage.Remotes:FindFirstChild("RequestTeamChange");
+	-- Item Event
+	ItemEve = Services.rstorage.Remotes:FindFirstChild("InteractWithItem");
+	TaseEve = game:GetService("ReplicatedStorage").GunRemotes.PlayerTased;
 }
 -- EVENTS --
 
@@ -836,7 +835,7 @@ Event:InvokeServer(
 
 -- POSITIONS --
 local Positions = {
-  CrimPos = CFrame.new(-974.720, 108.324, 2058.452);
+	CrimPos = CFrame.new(-974.720, 108.324, 2058.452);
 }
 -- POSITIONS
 
@@ -844,19 +843,19 @@ local Positions = {
 -- GUN LOCATIONS --
 -- Gun Locacations Table
 local GunLocations = {
-    -- Remingtons
-    RemingtonCrim = CFrame.new(-935.459, 94.129, 2041.765);
-    RemingtonGuards = CFrame.new(816.786, 99.977, 2231.649);
-    -- Automatics
-    MP5 = CFrame.new(816.786, 99.977, 2231.649);
-    AK47 = CFrame.new(-935.459, 94.129, 2041.765);
-    -- Riot Gamepass
-    M4A1 = CFrame.new(847.197, 99.977, 2231.329);
-    -- Mafia Gamepass
-    FAL = CFrame.new(-906.005, 94.129, 2048.154);
-    -- Sniper Gamepass
-    GuardItems = CFrame.new(831.055, 100.097, 2232.432);
-    CrimItems = CFrame.new(-915.673, 94.129, 2039.797);
+	-- Remingtons
+	RemingtonCrim = CFrame.new(-935.459, 94.129, 2041.765);
+	RemingtonGuards = CFrame.new(816.786, 99.977, 2231.649);
+	-- Automatics
+	MP5 = CFrame.new(816.786, 99.977, 2231.649);
+	AK47 = CFrame.new(-935.459, 94.129, 2041.765);
+	-- Riot Gamepass
+	M4A1 = CFrame.new(847.197, 99.977, 2231.329);
+	-- Mafia Gamepass
+	FAL = CFrame.new(-906.005, 94.129, 2048.154);
+	-- Sniper Gamepass
+	GuardItems = CFrame.new(831.055, 100.097, 2232.432);
+	CrimItems = CFrame.new(-915.673, 94.129, 2039.797);
 }
 -- GUN LOCATIONS --
 
@@ -864,10 +863,10 @@ local GunLocations = {
 -- ITEM LOCATIONS --
 -- Item Locations Table
 local ItemLocations = {
-    -- Riot Gamepass
-    RiotItems = CFrame.new(847.197, 99.977, 2231.329);
-    -- Mafia Gamepass
-    MafiaItems = CFrame.new(-906.005, 94.129, 2048.154);
+	-- Riot Gamepass
+	RiotItems = CFrame.new(847.197, 99.977, 2231.329);
+	-- Mafia Gamepass
+	MafiaItems = CFrame.new(-906.005, 94.129, 2048.154);
 }
 -- ITEM LOCATIONS --
 
@@ -875,26 +874,26 @@ local ItemLocations = {
 -- GUN DATA
 -- Gun Data Table
 local GunData = {
-  Remington = {
-    Name = "Remington 870";
-    Mesh = "Meshes/r870_2";
-  };
-  MP5 = {
-    Name = "MP5";
-    Mesh = "Meshes/MP5 (2)";
-  };
-  AK47 = {
-    Name = "AK-47";
-    Mesh = "Meshes/AK47_7";
-  };
-  M4A1 = {
-    Name = "M4A1";
-    Mesh = "Mesh";
-  };
-  Revolver = {
-    Name = "Revolver";
-    Mesh = "Meshes/Revolver (3)";
-  };
+	Remington = {
+		Name = "Remington 870";
+		Mesh = "Meshes/r870_2";
+	};
+	MP5 = {
+		Name = "MP5";
+		Mesh = "Meshes/MP5 (2)";
+	};
+	AK47 = {
+		Name = "AK-47";
+		Mesh = "Meshes/AK47_7";
+	};
+	M4A1 = {
+		Name = "M4A1";
+		Mesh = "Mesh";
+	};
+	Revolver = {
+		Name = "Revolver";
+		Mesh = "Meshes/Revolver (3)";
+	};
 }
 -- GUNDATA --
 
@@ -905,146 +904,268 @@ local LocPL = {
 -- DEBUG --
 -- Debug functions
 local Debug = {
-  deprint = function(args)
-	if PrizzSettings.Debug.Active and PrizzSettings.Debug.Prints then
-		print(args)
-	end
-end;
-  dewarn = function(args)
-	if PrizzSettings.Debug.Active and PrizzSettings.Debug.Warns then
-		warn(args)
-	end
-end;
+	deprint = function(args)
+		if PrizzSettings.Debug.Active and PrizzSettings.Debug.Prints then
+			print(args)
+		end
+	end;
+	dewarn = function(args)
+		if PrizzSettings.Debug.Active and PrizzSettings.Debug.Warns then
+			warn(args)
+		end
+	end;
 }
 -- DEBUG --
 
+local tpbypassdb = false
+local staytpdb = false
+local tpqueue = {}
+local stopqueue = false
+
+local ts = Services.tweenservice
+
+function AnchorRoot(root,bool)
+	root.Anchored = bool
+end
+
+local function SmoothTP(root,goingto,speed)
+	speed = speed or 1
+
+	local startpos = root.Position
+	local endpos = goingto.Position
+	local dist = (endpos - startpos).Magnitude
+
+	if dist == 0 then return end
+
+	local tweentime = dist * speed
+
+	local tweeninfo = TweenInfo.new(
+		tweentime,
+		Enum.EasingStyle.Linear,
+		Enum.EasingDirection.InOut,
+		0,
+		false,
+		0
+	)
+
+	local tween = Services.tweenservice:Create(root, tweeninfo, {
+		CFrame = goingto
+	})
+
+	tween:Play()
+
+	tween.Completed:Wait()
+end
+
+
+task.spawn(function()
+	while true do
+		task.wait(0.1)
+		if stopqueue == true then
+			break
+		end
+		if #tpqueue < 1 then
+			continue
+		end
+		local chr = Variables.player.Character or Variables.player.CharacterAdded:Wait()
+		local root = chr:WaitForChild("HumanoidRootPart")
+		task.spawn(function()
+			if tpbypassdb == false then
+				tpbypassdb = true
+				local ogcf = root.CFrame
+				local goingto = tpqueue[1].Position
+				local goingtocf = tpqueue[1]
+				AnchorRoot(root,true)
+				SmoothTP(root,ogcf-Vector3.new(0,10,0),0.075)
+				SmoothTP(root,goingtocf-Vector3.new(0,10,0),0.075)
+				staytpdb = true
+				local part = Instance.new("Part")
+				part.Anchored = true
+				part.Size = Vector3.new(3,0.5,3)
+				part.CFrame = goingtocf-Vector3.new(0,13.5,0)
+				part.Parent = workspace
+				AnchorRoot(root,false)
+				task.wait(1)
+				AnchorRoot(root,true)
+				part:Destroy()
+				staytpdb = false
+				SmoothTP(root,ogcf-Vector3.new(0,10,0),0.075)
+				SmoothTP(root,ogcf+Vector3.new(0,10,0),0.075)
+				table.remove(tpqueue,1)
+				AnchorRoot(root,false)
+				task.wait(1)
+				tpbypassdb = false
+			end
+		end)
+	end
+end)
 
 -- CORE FUNCTIONS --
 -- Core Functions Table
 local CoreFunctions = {
-  ItemFunction = function(itemname, mesh)
-    if itemname and mesh then
-      Events.ItemEve:InvokeServer(Services.ws.Prison_ITEMS.giver[itemname][mesh])
-    else
-      Debug.dewarn("PrizzLife_Error: " .. tostring(errors) .. ", and" .. " you either don't have the Item Name, or Mesh, provide those for this function to work correctly..")
-    end
-  end;
-  TeamFunction = function(args, switch)
-    local team = Services.teams[args]
-    if team and switch then
-      if (PrizzSettings.ACBypass or (PrizzSettings.Debug.Active and PrizzSettings.Debug.ACBypass)) then
-      Events.TeamEve:InvokeServer(Services.teams["Neutral"], 1)-- Very shitty anticheat attempt
-      task.wait(2.5)
-      Events.TeamEve:InvokeServer(team, 1)
-      else
-        Events.TeamEve:InvokeServer(Services.teams["Neutral"])
-      task.wait(2.5)
-      Events.TeamEve:InvokeServer(team) -- Very shitty anticheat attempt
-      end
-    elseif not switch then
-      if (PrizzSettings.ACBypass or (PrizzSettings.Debug.Active and PrizzSettings.Debug.ACBypass)) then
-      Events.TeamEve:InvokeServer(team, 1) -- Very shitty anticheat attempt
-      else
-        Events.TeamEve:InvokeServer(team)
-      end
-    else
-      Debug.dewarn("PrizzLife_Error: " .. tostring(errors) .. ", and" .. " team not found.")
-    end
-  end;
-  CheckTeam = function(team)
-    plr = Services.players.LocalPlayer
-    if team and plr.Team.Name
-      then
-        if plr.Team.Name == team then
-          return true
-        else
-          return false
-        end
-    else
-      Debug.dewarn("PrizzLife_Error: " .. tostring(errors) .. ", and" .. " enter the team name to do the check.")
-      end
-  end;
-  ItemCheck = function(itemname)
-    local player = Variables.player
-    local item = player.Backpack:FindFirstChild(itemname)
-    if player and item then
-      return true
-    else
-      return false
-    end
-  end;
-  UnloadScript = function()
-    if PLAdmin then
-        PLAdmin:Destroy()
-    end
-    local loaded = workspace:FindFirstChild("PLADMIN LOADED SUCCESSFULLY")
-    if loaded then
-        loaded:Destroy()
-    end
-    print("Unload Successful")
-  end;
-  ownsgps = function(userId, passIds)
-	for _, passId in ipairs(passIds) do
-		local success, owns = pcall(function()
-			return Services.mps:UserOwnsGamePassAsync(userId, passId)
-		end)
-		if success and owns then
+	ItemFunction = function(itemname, mesh)
+		if itemname and mesh then
+			Events.ItemEve:InvokeServer(Services.ws.Prison_ITEMS.giver[itemname][mesh])
+		else
+			Debug.dewarn("PrizzLife_Error: " .. tostring(errors) .. ", and" .. " you either don't have the Item Name, or Mesh, provide those for this function to work correctly..")
+		end
+	end;
+	TPBypass = function(cf)
+		table.insert(tpqueue,cf)
+		repeat
+			task.wait(0.1)
+		until staytpdb == true
+	end;
+	TeamFunction = function(args, switch)
+		local team = Services.teams[args]
+		if team and switch then
+			if (PrizzSettings.ACBypass or (PrizzSettings.Debug.Active and PrizzSettings.Debug.ACBypass)) then
+				Events.TeamEve:InvokeServer(Services.teams["Neutral"], 1)-- Very shitty anticheat attempt
+				task.wait(2.5)
+				Events.TeamEve:InvokeServer(team, 1)
+			else
+				Events.TeamEve:InvokeServer(Services.teams["Neutral"])
+				task.wait(2.5)
+				Events.TeamEve:InvokeServer(team) -- Very shitty anticheat attempt
+			end
+		elseif not switch then
+			if (PrizzSettings.ACBypass or (PrizzSettings.Debug.Active and PrizzSettings.Debug.ACBypass)) then
+				Events.TeamEve:InvokeServer(team, 1) -- Very shitty anticheat attempt
+			else
+				Events.TeamEve:InvokeServer(team)
+			end
+		else
+			Debug.dewarn("PrizzLife_Error: " .. tostring(errors) .. ", and" .. " team not found.")
+		end
+	end;
+	CheckTeam = function(team)
+		plr = Services.players.LocalPlayer
+		if team and plr.Team.Name
+		then
+			if plr.Team.Name == team then
+				return true
+			else
+				return false
+			end
+		else
+			Debug.dewarn("PrizzLife_Error: " .. tostring(errors) .. ", and" .. " enter the team name to do the check.")
+		end
+	end;
+	ItemCheck = function(itemname)
+		local player = Variables.player
+		local item = player.Backpack:FindFirstChild(itemname)
+		if player and item then
 			return true
 		else
-	  Debug.deprint("PrizzLife_Error: " .. tostring(errors) .. ", and" .. "you don't own this, or these gamepasses.")
-	end
-  end
-end;
+			return false
+		end
+	end;
+	ownsgps = function(userId, passIds)
+		for _, passId in ipairs(passIds) do
+			local success, owns = pcall(function()
+				return Services.mps:UserOwnsGamePassAsync(userId, passId)
+			end)
+			if success and owns then
+				return true
+			else
+				Debug.deprint("PrizzLife_Error: " .. tostring(errors) .. ", and" .. "you don't own this, or these gamepasses.")
+			end
+		end
+	end;
 }
 -- CORE FUNCTIONS --
 
 local antitazedb = false
 local rdb = false
+local reloaddb = false
+
+local autogunscon = nil
+local autogunmodcon = nil
+local antitasecon = nil
+local autoreloadcon = nil
+local autorecon = nil
+local autorestop = false
+
+CoreFunctions.UnloadScript = function()
+	if PLAdmin then
+		PLAdmin:Destroy()
+	end
+	local loaded = workspace:FindFirstChild("PRIZZLIFEADMIN LOADED SUCCESSFULLY")
+	if loaded then
+		loaded:Destroy()
+	end
+	if autogunscon ~= nil then
+		autogunscon:Disconnect()
+		autogunscon = nil
+	end
+	if autogunmodcon ~= nil then
+		autogunmodcon:Disconnect()
+		autogunmodcon = nil
+	end
+	if antitasecon ~= nil then
+		antitasecon:Disconnect()
+		antitasecon = nil
+	end
+	if autoreloadcon ~= nil then
+		autoreloadcon:Disconnect()
+		autoreloadcon = nil
+	end
+	if autorecon ~= nil then
+		autorecon:Disconnect()
+		autorecon = nil
+	end
+	autorestop = true
+	stopqueue = true
+	table.clear(tpqueue)
+	tpqueue = {}
+	print("Unload Successful")
+end
 
 -- LIGHT FUNCTIONS --
 -- LightFunctions Table
-local LightFunctions = {
-  ChangeTeam = function(teamname)
-    plr = Variables.player
-    if not teamname then
-      Notif("Error", "Input your team name for this function to work.")
-      return
-    end
-    if CoreFunctions.CheckTeam(teamname) then
-      Notif("Error", "You are already on this team.")
-    end
-    if teamname == "Guards" then
-      if Variables.player.Team and Variables.player.Team.Name ~= "Guards" then
-      CoreFunctions.TeamFunction("Guards", true)
-      else
-        CoreFunctions.TeamFunction("Guards", false)
-        end
-    elseif teamname == "Inmates" then
-        if Variables.player.Team and Variables.player.Team.Name ~= "Inmates" then
-        CoreFunctions.TeamFunction("Inmates", true)
-      else
-        CoreFunctions.TeamFunction("Inmates", false)
-      end
-      elseif teamname == "Neutral" then
-        CoreFunctions.TeamFunction("Neutral", false)
-    elseif teamname == "Criminals" then
-      if Variables.player.Team and Variables.player.Team.Name == "Inmates" then
-      task.wait(0.5)
-        Variables.player.Character.HumanoidRootPart.CFrame = Positions.CrimPos
-      elseif Variables.player.Team and Variables.player.Team.Name == "Guards" then
-        CoreFunctions.TeamFunction("Inmates", true)
-        Variables.player.CharacterAdded:Wait()
-        task.wait(0.5)
-          Variables.player.Character.HumanoidRootPart.CFrame = Positions.CrimPos
-          end
-      elseif Variables.player.Team and Variables.player.Team.Name == "Neutral" then
-          CoreFunctions.TeamFunction("Inmates", false)
-          Variables.player.CharacterAdded:Wait()
-          task.wait(0.5)
-          Variables.player.Character.HumanoidRootPart.CFrame = Positions.CrimPos
-    end
-  end;
-  GiveGun = function(itemname)
+local LightFunctions = {}
+
+LightFunctions.ChangeTeam = function(teamname)
+	plr = Variables.player
+	if not teamname then
+		Notif("Error", "Input your team name for this function to work.")
+		return
+	end
+	if CoreFunctions.CheckTeam(teamname) then
+		Notif("Error", "You are already on this team.")
+	end
+	if teamname == "Guards" then
+		if Variables.player.Team and Variables.player.Team.Name ~= "Guards" then
+			CoreFunctions.TeamFunction("Guards", true)
+		else
+			CoreFunctions.TeamFunction("Guards", false)
+		end
+	elseif teamname == "Inmates" then
+		if Variables.player.Team and Variables.player.Team.Name ~= "Inmates" then
+			CoreFunctions.TeamFunction("Inmates", true)
+		else
+			CoreFunctions.TeamFunction("Inmates", false)
+		end
+	elseif teamname == "Neutral" then
+		CoreFunctions.TeamFunction("Neutral", false)
+	elseif teamname == "Criminals" then
+		if Variables.player.Team and Variables.player.Team.Name == "Inmates" then
+			task.wait(0.5)
+			Variables.player.Character.HumanoidRootPart.CFrame = Positions.CrimPos
+		elseif Variables.player.Team and Variables.player.Team.Name == "Guards" then
+			CoreFunctions.TeamFunction("Inmates", true)
+			Variables.player.CharacterAdded:Wait()
+			task.wait(0.5)
+			Variables.player.Character.HumanoidRootPart.CFrame = Positions.CrimPos
+		end
+	elseif Variables.player.Team and Variables.player.Team.Name == "Neutral" then
+		CoreFunctions.TeamFunction("Inmates", false)
+		Variables.player.CharacterAdded:Wait()
+		task.wait(0.5)
+		Variables.player.Character.HumanoidRootPart.CFrame = Positions.CrimPos
+	end
+end
+LightFunctions.GiveGun = function(itemname)
 	local player = game.Players.LocalPlayer
 	local char = player.Character
 	local hrp = char.HumanoidRootPart
@@ -1052,401 +1173,152 @@ local LightFunctions = {
 
 	-- REMINGTONS
 	if itemname == "RemingtonGuards" then
-	  if not CoreFunctions.ItemCheck("Remington 870") then
-		hrp.CFrame = GunLocations.RemingtonGuards
-		task.wait(0.2)
-		CoreFunctions.ItemFunction(GunData.Remington.Name, GunData.Remington.Mesh)
-		Notif("OK", "Obtained Remington 870.")
-	  else
-	    Notif("Error", "You already have the Remington 870.")
-	  end
-	elseif itemname == "RemingtonCrim" then
-	  if not CoreFunctions.ItemCheck("Remington 870") then
-		hrp.CFrame = GunLocations.RemingtonCrim
-		task.wait(0.2)
-		Events.ItemEve:InvokeServer(
-			workspace.Prison_ITEMS.giver:GetChildren()[4][GunData.Remington.Mesh]
-		)
-		Notif("OK", "Obtained Remington 870.")
-	  else
-	    Notif("Error", "You already have the Remington 870.")
-	  end
-
-
-	-- AUTOMATICS
-	elseif itemname == "MP5" then
-	  if not CoreFunctions.ItemCheck("MP5") then
-		hrp.CFrame = GunLocations.MP5
-		task.wait(0.2)
-		CoreFunctions.ItemFunction(GunData.MP5.Name, GunData.MP5.Mesh)
-		Notif("OK", "Obtained MP5.")
-		else
-		  Notif("Error", "You already have the MP5.")
-	  end
-	  
-
-	elseif itemname == "AK47" then
-    if not CoreFunctions.ItemCheck("AK-47") then
-		hrp.CFrame = GunLocations.AK47
-		task.wait(0.2)
-		CoreFunctions.ItemFunction(GunData.AK47.Name, GunData.AK47.Mesh)
-		Notif("OK", "Obtained AK-47.")
-    else
-      Notif("Error", "You already have the AK47.")
-    end
-    
-    
-    -- Riot Gun
-	elseif itemname == "M4A1" then
-		if CoreFunctions.ownsgps(Variables.player.UserId, {96651, 643697197}) then
-		  if not CoreFunctions.ItemCheck("M4A1") then
-			hrp.CFrame = GunLocations.M4A1
+		if not CoreFunctions.ItemCheck("Remington 870") then
+			CoreFunctions.TPBypass(GunLocations.RemingtonGuards)
 			task.wait(0.2)
-			CoreFunctions.ItemFunction(GunData.M4A1.Name, GunData.M4A1.Mesh)
-			Notif("OK", "Obtained M4A1.")
-			else
-			  Notif("Error", "You already have the M4A1.")
-			  end
+			CoreFunctions.ItemFunction(GunData.Remington.Name, GunData.Remington.Mesh)
+			Notif("OK", "Obtained Remington 870.")
 		else
-			Notif("Gamepasses❌", "You don't own the Riot Gamepass, you can't get this item.", 6)
-		  end
-	
-	
-    -- Mafia Gun
-	elseif itemname == "FAL" then
-		if CoreFunctions.ownsgps(Variables.player.UserId, {1443271}) then
-		  if not CoreFunctions.ItemCheck("FAL") then
-			hrp.CFrame = GunLocations.FAL
+			Notif("Error", "You already have the Remington 870.")
+		end
+	elseif itemname == "RemingtonCrim" then
+		if not CoreFunctions.ItemCheck("Remington 870") then
+			CoreFunctions.TPBypass(GunLocations.RemingtonCrim)
 			task.wait(0.2)
 			Events.ItemEve:InvokeServer(
-				workspace.Prison_ITEMS.giver.FAL:GetChildren()[4]
+				workspace.Prison_ITEMS.giver:GetChildren()[4][GunData.Remington.Mesh]
 			)
-			Notif("OK", "Obtained FAL.")
+			Notif("OK", "Obtained Remington 870.")
+		else
+			Notif("Error", "You already have the Remington 870.")
+		end
+
+
+		-- AUTOMATICS
+	elseif itemname == "MP5" then
+		if not CoreFunctions.ItemCheck("MP5") then
+			CoreFunctions.TPBypass(GunLocations.MP5)
+			task.wait(0.2)
+			CoreFunctions.ItemFunction(GunData.MP5.Name, GunData.MP5.Mesh)
+			Notif("OK", "Obtained MP5.")
+		else
+			Notif("Error", "You already have the MP5.")
+		end
+
+
+	elseif itemname == "AK47" then
+		if not CoreFunctions.ItemCheck("AK-47") then
+			CoreFunctions.TPBypass(GunLocations.AK47)
+			task.wait(0.2)
+			CoreFunctions.ItemFunction(GunData.AK47.Name, GunData.AK47.Mesh)
+			Notif("OK", "Obtained AK-47.")
+		else
+			Notif("Error", "You already have the AK47.")
+		end
+
+
+		-- Riot Gun
+	elseif itemname == "M4A1" then
+		if CoreFunctions.ownsgps(Variables.player.UserId, {96651, 643697197}) then
+			if not CoreFunctions.ItemCheck("M4A1") then
+				CoreFunctions.TPBypass(GunLocations.M4A1)
+				task.wait(0.2)
+				CoreFunctions.ItemFunction(GunData.M4A1.Name, GunData.M4A1.Mesh)
+				Notif("OK", "Obtained M4A1.")
 			else
-			  Notif("Error", "You already have the FAL.")
-		  end
+				Notif("Error", "You already have the M4A1.")
+			end
+		else
+			Notif("Gamepasses❌", "You don't own the Riot Gamepass, you can't get this item.", 6)
+		end
+
+
+		-- Mafia Gun
+	elseif itemname == "FAL" then
+		if CoreFunctions.ownsgps(Variables.player.UserId, {1443271}) then
+			if not CoreFunctions.ItemCheck("FAL") then
+				CoreFunctions.TPBypass(GunLocations.FAL)
+				task.wait(0.2)
+				Events.ItemEve:InvokeServer(
+					workspace.Prison_ITEMS.giver.FAL:GetChildren()[4]
+				)
+				Notif("OK", "Obtained FAL.")
+			else
+				Notif("Error", "You already have the FAL.")
+			end
 		else
 			Notif("Gamepasses❌", "You don't own the Mafia Gamepass, you can't get this item.", 6)
 		end
-    -- Sniper Guns
+		-- Sniper Guns
 	elseif itemname == "Sniper" then
 		if CoreFunctions.ownsgps(Variables.player.UserId, {699360089}) then
 			if Variables.player.Team and Variables.player.Team.Name == "Guards" then
-			  if not CoreFunctions.ItemCheck("Sniper") then
-				hrp.CFrame = GunLocations.GuardItems
-				task.wait(0.2)
-				Events.ItemEve:InvokeServer(
-					workspace.Prison_ITEMS.giver:GetChildren()[11].model1
-				)
-				Notif("OK", "Obtained Sniper.")
-			  else
-			    Notif("Error", "You already have the Sniper.")
-			  end
+				if not CoreFunctions.ItemCheck("Sniper") then
+					CoreFunctions.TPBypass(GunLocations.GuardItems)
+					task.wait(0.2)
+					Events.ItemEve:InvokeServer(
+						workspace.Prison_ITEMS.giver:GetChildren()[11].model1
+					)
+					Notif("OK", "Obtained Sniper.")
+				else
+					Notif("Error", "You already have the Sniper.")
+				end
 
 			elseif Variables.player.Team and Variables.player.Team.Name == "Criminals" then
-			  if not CoreFunctions.ItemCheck("Sniper") then
-				hrp.CFrame = GunLocations.CrimItems
-				task.wait(0.2)
-				Events.ItemEve:InvokeServer(
-					workspace.Prison_ITEMS.giver.M700:GetChildren()[8]
-				)
-				Notif("OK", "Obtained Sniper.")
+				if not CoreFunctions.ItemCheck("Sniper") then
+					CoreFunctions.TPBypass(GunLocations.CrimItems)
+					task.wait(0.2)
+					Events.ItemEve:InvokeServer(
+						workspace.Prison_ITEMS.giver.M700:GetChildren()[8]
+					)
+					Notif("OK", "Obtained Sniper.")
 				else
-				  Notif("Error", "You already have the Sniper.")
-			  end
-		end
+					Notif("Error", "You already have the Sniper.")
+				end
+			end
 		else
 			Notif("Gamepasses❌", "You don't own the Sniper Gamepass, you can't get this item.", 6)
 		end
-	-- Revolver
+		-- Revolver
 	elseif itemname == "Revolver" then
 		if CoreFunctions.ownsgps(Variables.player.UserId, {699360089}) then
 			if Variables.player.Team and Variables.player.Team.Name == "Guards" then
-			  if CoreFunctions.ItemCheck("Revolver") then
-				hrp.CFrame = GunLocations.GuardItems
-				task.wait(0.2)
-                Events.ItemEve:InvokeServer(workspace.Prison_ITEMS.giver:GetChildren()[13]:GetChildren()[2])
-                Notif("OK", "Obtained Revolver.")
-                else
-                  Notif("Error", "You already have the Revolver.")
-			  end
-                
+				if CoreFunctions.ItemCheck("Revolver") then
+					CoreFunctions.TPBypass(GunLocations.GuardItems)
+					task.wait(0.2)
+					Events.ItemEve:InvokeServer(workspace.Prison_ITEMS.giver:GetChildren()[13]:GetChildren()[2])
+					Notif("OK", "Obtained Revolver.")
+				else
+					Notif("Error", "You already have the Revolver.")
+				end
+
 
 			elseif Variables.player.Team and Variables.player.Team.Name == "Criminals" then
-			  if not CoreFunctions.ItemCheck("Revolver") then
-				hrp.CFrame = GunLocations.CrimItems
-				task.wait(0.2)
-			    CoreFunctions.ItemFunction(GunData.Revolver.Name, GunData.Revolver.Mesh)
-			    Notif("OK", "Obtained Revolver.")
-			    else
-			      Notif("Error", "You already have the Revolver.")
-			  end
+				if not CoreFunctions.ItemCheck("Revolver") then
+					CoreFunctions.TPBypass(GunLocations.CrimItems)
+					task.wait(0.2)
+					CoreFunctions.ItemFunction(GunData.Revolver.Name, GunData.Revolver.Mesh)
+					Notif("OK", "Obtained Revolver.")
+				else
+					Notif("Error", "You already have the Revolver.")
+				end
 			end
 		else
 			Notif("Gamepasses❌", "You don't own the Sniper Gamepass, you can't get this item.", 6)
 		end
+	else
+		Notif("Error", "Item not found.",3)
 	end
-	task.wait(0.1)
-	hrp.CFrame = SavedPos
 end
-	AutoGuns = function(toggle)
-		if toggle == true then
-			Notif("Auto Guns","Enabled auto guns",4)
-		elseif toggle == false then
-			Notif("Auto Guns","Disabled auto guns",4)
+LightFunctions.ModGuns = function(Name,Arg)
+	if Variables.player.Character and Variables.player.Character:FindFirstChildOfClass("Tool") then
+		local gun = Variables.player.Character:FindFirstChildOfClass("Tool")
+		if gun:GetAttribute(Name) then
+			gun:SetAttribute(Name,Arg)
 		end
+	end
+	if Variables.player:FindFirstChild("Backpack") then
 		task.spawn(function()
-			if toggle == true then
-				if game.Players.LocalPlayer.Team.Name == "Guards" then
-					LightFunctions.GiveGun("RemingtonGuards")
-				elseif game.Players.LocalPlayer.Team.Name == "Inmates" then
-					LightFunctions.GiveGun("RemingtonGuards")
-				elseif game.Players.LocalPlayer.Team.Name == "Criminals" then 
-					LightFunctions.GiveGun("RemingtonCrim")
-				end
-				task.wait(2)
-				LightFunctions.GiveGun("AK47")
-				task.wait(2)
-				LightFunctions.GiveGun("MP5")
-				task.wait(2)
-				LightFunctions.GiveGun("M4A1")
-				task.wait(2)
-				LightFunctions.GiveGun("Sniper")
-				task.wait(2)
-				LightFunctions.GiveGun("Revolver")
-			end
-		end)
-		local autogunscon = nil
-		if toggle == true then
-			autogunscon = Variables.player.CharacterAdded:Connect(function(c)
-				c:WaitForChild("HumanoidRootPart")
-				if toggle == true then
-					if game.Players.LocalPlayer.Team.Name == "Guards" then
-						LightFunctions.GiveGun("RemingtonGuards")
-					elseif game.Players.LocalPlayer.Team.Name == "Inmates" then
-						LightFunctions.GiveGun("RemingtonGuards")
-					elseif game.Players.LocalPlayer.Team.Name == "Criminals" then 
-						LightFunctions.GiveGun("RemingtonCrim")
-					end
-					task.wait(2)
-					LightFunctions.GiveGun("AK47")
-					task.wait(2)
-					LightFunctions.GiveGun("MP5")
-					task.wait(2)
-					LightFunctions.GiveGun("M4A1")
-					task.wait(2)
-					LightFunctions.GiveGun("Sniper")
-					task.wait(2)
-					LightFunctions.GiveGun("Revolver")
-				end
-			end)
-		end
-		if toggle == false then
-			if autogunscon ~= nil then
-				autogunscon:Disconnect()
-				autogunscon = nil
-			end
-		end
-	end,
-	AutoGunMod = function(toggle)
-		local autogunmodcon = nil
-		if toggle == true then
-			autogunmodcon = Services.rsv.RenderStepped:Connect(function()
-				if toggle == true then
-					task.spawn(function()
-						if Variables.player.Character then
-							for _,tool in pairs(Variables.player.Character:GetChildren()) do
-								if tool:IsA("Tool") then
-									if tool:GetAttribute("AutoFire") then
-										tool:SetAttribute("AutoFire",PrizzSettings.GunMods.AutoFire)
-									end
-									if tool:GetAttribute("FireRate") then
-										tool:SetAttribute("FireRate",PrizzSettings.GunMods.FireRate)
-									end
-									if tool:GetAttribute("AccurateRange") then
-										tool:SetAttribute("AccurateRange",PrizzSettings.GunMods.AccurateRange)
-									end
-									if tool:GetAttribute("ReloadTime") then
-										tool:SetAttribute("ReloadTime",PrizzSettings.GunMods.ReloadTime)
-									end
-									if tool:GetAttribute("Range") then
-										tool:SetAttribute("Range",PrizzSettings.GunMods.Range)
-									end
-									if tool:GetAttribute("ChargeTime") then
-										tool:SetAttribute("ChargeTime",PrizzSettings.GunMods.ChargeTime)
-									end
-									if tool:GetAttribute("SpreadRadius") then
-										tool:SetAttribute("SpreadRadius",PrizzSettings.GunMods.SpreadRadius)
-									end
-								end
-							end
-						end
-					end)
-					if Variables.player:FindFirstChild("Backpack") then
-						for _,tool in pairs(Variables.player.Backpack:GetChildren()) do
-							if tool:IsA("Tool") then
-								if tool:GetAttribute("AutoFire") then
-									tool:SetAttribute("AutoFire",PrizzSettings.GunMods.AutoFire)
-								end
-								if tool:GetAttribute("FireRate") then
-									tool:SetAttribute("FireRate",PrizzSettings.GunMods.FireRate)
-								end
-								if tool:GetAttribute("AccurateRange") then
-									tool:SetAttribute("AccurateRange",PrizzSettings.GunMods.AccurateRange)
-								end
-								if tool:GetAttribute("ReloadTime") then
-									tool:SetAttribute("ReloadTime",PrizzSettings.GunMods.ReloadTime)
-								end
-								if tool:GetAttribute("Range") then
-									tool:SetAttribute("Range",PrizzSettings.GunMods.Range)
-								end
-								if tool:GetAttribute("ChargeTime") then
-									tool:SetAttribute("ChargeTime",PrizzSettings.GunMods.ChargeTime)
-								end
-								if tool:GetAttribute("SpreadRadius") then
-									tool:SetAttribute("SpreadRadius",PrizzSettings.GunMods.SpreadRadius)
-								end
-							end
-						end
-					end
-				end
-			end)
-		end
-		if toggle == false then
-			if autogunmodcon ~= nil then
-				autogunmodcon:Disconnect()
-				autogunmodcon = nil
-			end
-		end
-	end,
-	AntiTase = function(toggle)
-		task.spawn(function()
-			if toggle == true then
-				local chr = Variables.player.Character or Variables.player.CharacterAdded:Wait()
-				local hum = chr:WaitForChild("Humanoid")
-				if antitasedb == false then
-			        antitasedb = true
-			        local ogws = hum.WalkSpeed
-			        repeat
-			            if math.random(-5,5) == 0 then
-			                rsv.RenderStepped:Wait()
-			            end
-			            if hum.WalkSpeed < 1 and not hum.Parent:FindFirstChildWhichIsA("BillboardGui",true) then
-			                hum.WalkSpeed = ogws
-			                task.spawn(function()
-			                    for _,anims in pairs(hum:GetPlayingAnimationTracks()) do
-			                        anims:Stop()
-			                    end
-			                end)
-			            end
-			        until antitasedb == false
-			    end
-			end
-		end)
-		local antitasecon
-		if toggle == true then
-			antitasecon = plr.CharacterAdded:Connect(function(c)
-			    antitasedb = false
-			    c:WaitForChild("Humanoid")
-			    local hum = c:WaitForChild("Humanoid")
-			    task.spawn(function()
-			        if antitasedb == false then
-			            antitasedb = true
-			            local ogws = hum.WalkSpeed
-			            repeat
-			                if math.random(-5,5) == 0 then
-			                    rsv.RenderStepped:Wait()
-			                end
-			                if hum.WalkSpeed < 1 and not hum.Parent:FindFirstChildWhichIsA("BillboardGui",true) then
-			                    hum.WalkSpeed = ogws
-			                    task.spawn(function()
-			                        for _,anims in pairs(hum:GetPlayingAnimationTracks()) do
-			                            anims:Stop()
-			                        end
-			                    end)
-			                end
-			            until antitasedb == false
-			        end
-			    end)
-			end)
-		end
-		if toggle == false then
-			if antitasecon ~= nil then
-				antitasecon:Disconnect()
-				antitasecon = nil
-			end
-		end
-	end,
-	AutoReload = function(toggle)
-		local function reloadgun()
-		    task.spawn(function()
-		        for _, f in next, getgc(true) do
-		            if typeof(f) == "function" and islclosure(f) and debug.info(f, "n") == "reload" then
-		                f()
-		                break
-		            end
-		        end
-		    end)
-		end
-		local autoreloadcon = nil
-		if toggle == true then
-			autoreloadcon = Services.rsv.RenderStepped:Connect(function()
-				local chr = plr.Character or plr.CharacterAdded:Wait()
-				if chr:FindFirstChildOfClass("Tool") then
-			        if chr:FindFirstChildOfClass("Tool"):GetAttribute("CurrentAmmo") then
-			            local ammo = chr:FindFirstChildOfClass("Tool"):GetAttribute("CurrentAmmo")
-			            if ammo <= 0 then
-			                reloadgun()
-			            end
-			        end
-			    end
-			end)
-		end
-		if toggle == false then
-			if autoreloadcon ~= nil then
-				autoreloadcon:Disconnect()
-				autoreloadcon = nil
-			end
-		end
-	end,
-	AutoRe = function(toggle)
-		local curpos
-		if toggle == true then
-			task.spawn(function()
-				repeat
-					task.wait(1)
-					local hum = Variables.player.Character and Variables.player.Character:FindFirstChild("Humanoid") or nil
-        			if hum then
-			            if hum.Health > 0 then
-			                if rdb == false then
-			                    curpos = plr.Character.HumanoidRootPart.CFrame
-			                end
-			            end
-			        end
-				until toggle == false
-			end)
-		end
-		local autorecon = nil
-		if toggle == true
-			autorecon = Variables.player.CharacterAdded:Connect(function(c)
-				if toggle == true then
-					rdb = true
-				    c:WaitForChild("HumanoidRootPart")
-				    local root = c:FindFirstChild("HumanoidRootPart")
-				    root.CFrame = curpos
-				    rdb = false
-				end
-			end)
-		end
-	end,
-	ModGuns = function(Name,Arg)
-		if Variables.player.Character and Variables.player.Character:FindFirstChildOfClass("Tool") then
-			local gun = Variables.player.Character:FindFirstChildOfClass("Tool")
-			if gun:GetAttribute(Name) then
-				gun:SetAttribute(Name,Arg)
-			end
-		end
-		if Variables.player:FindFirstChild("Backpack") then
 			for _,gun in pairs(Variables.player.Backpack:GetChildren()) do
 				if gun:IsA("Tool") then
 					if gun:GetAttribute(Name) then
@@ -1454,10 +1326,174 @@ end
 					end
 				end
 			end
+		end)
+	end
+	Notif("Gun Mod","Successfully Modded guns: "..Name.." with value: "..tostring(Arg),5)
+end
+-- LIGHT FUNCTIONS --
+
+local function reloadgun()
+	task.spawn(function()
+		for _, f in next, getgc(true) do
+			if typeof(f) == "function" and islclosure(f) and debug.info(f, "n") == "reload" then
+				f()
+				break
+			end
+		end
+	end)
+end
+
+local curpos = nil
+
+
+autorecon = Variables.player.CharacterAdded:Connect(function(c)
+	local toggle = PrizzSettings.LoopedCmds.AutoRe
+	if toggle == true then
+		rdb = true
+		c:WaitForChild("HumanoidRootPart")
+		local root = c:FindFirstChild("HumanoidRootPart")
+		if curpos ~= nil then
+			root.CFrame = curpos
+		end
+		rdb = false
+	end
+end)
+
+autoreloadcon = Services.rsv.Heartbeat:Connect(function()
+	local toggle = PrizzSettings.LoopedCmds.AutoReload
+	if toggle == true then
+		local chr = Variables.player.Character or Variables.player.CharacterAdded:Wait()
+		if chr:FindFirstChildOfClass("Tool") then
+			if chr:FindFirstChildOfClass("Tool"):GetAttribute("CurrentAmmo") then
+				local ammo = chr:FindFirstChildOfClass("Tool"):GetAttribute("CurrentAmmo")
+				if ammo <= 0 then
+					if reloaddb == false then
+						reloaddb = true
+						reloadgun()
+					end
+				else
+					reloaddb = false
+				end
+			end
 		end
 	end
-}
--- LIGHT FUNCTIONS --
+end)
+
+antitasecon = Variables.player.CharacterAdded:Connect(function(c)
+	local toggle = PrizzSettings.LoopedCmds.AntiTase
+	if toggle == true then
+		antitasedb = false
+		c:WaitForChild("Humanoid")
+		local hum = c:WaitForChild("Humanoid")
+		task.spawn(function()
+			if antitasedb == false then
+				antitasedb = true
+				local ogws = hum.WalkSpeed
+				repeat
+					if math.random(-5,5) == 0 then
+						Services.rsv.RenderStepped:Wait()
+					end
+					if hum.WalkSpeed < 1 and not hum.Parent:FindFirstChildWhichIsA("BillboardGui",true) then
+						hum.WalkSpeed = ogws
+						task.spawn(function()
+							for _,anims in pairs(hum:GetPlayingAnimationTracks()) do
+								anims:Stop()
+							end
+						end)
+					end
+				until antitasedb == false
+			end
+		end)
+	end
+end)
+
+autogunmodcon = Services.rsv.Heartbeat:Connect(function()
+	local toggle = PrizzSettings.LoopedCmds.AutoGunMod
+	if toggle == true then
+		task.spawn(function()
+			if Variables.player.Character then
+				for _,tool in pairs(Variables.player.Character:GetChildren()) do
+					if tool:IsA("Tool") then
+						LightFunctions.ModGuns("AutoFire",PrizzSettings.GunMods.AutoFire)
+						LightFunctions.ModGuns("FireRate",PrizzSettings.GunMods.FireRate)
+						LightFunctions.ModGuns("AccurateRange",PrizzSettings.GunMods.AccurateRange)
+						LightFunctions.ModGuns("ReloadTime",PrizzSettings.GunMods.ReloadTime)
+						LightFunctions.ModGuns("Range",PrizzSettings.GunMods.Range)
+						LightFunctions.ModGuns("ChargeTime",PrizzSettings.GunMods.ChargeTime)
+						LightFunctions.ModGuns("SpreadRadius",PrizzSettings.GunMods.SpreadRadius)
+					end
+				end
+			end
+		end)
+		if Variables.player:FindFirstChild("Backpack") then
+			for _,tool in pairs(Variables.player.Backpack:GetChildren()) do
+				if tool:IsA("Tool") then
+					LightFunctions.ModGuns("AutoFire",PrizzSettings.GunMods.AutoFire)
+					LightFunctions.ModGuns("FireRate",PrizzSettings.GunMods.FireRate)
+					LightFunctions.ModGuns("AccurateRange",PrizzSettings.GunMods.AccurateRange)
+					LightFunctions.ModGuns("ReloadTime",PrizzSettings.GunMods.ReloadTime)
+					LightFunctions.ModGuns("Range",PrizzSettings.GunMods.Range)
+					LightFunctions.ModGuns("ChargeTime",PrizzSettings.GunMods.ChargeTime)
+					LightFunctions.ModGuns("SpreadRadius",PrizzSettings.GunMods.SpreadRadius)
+				end
+			end
+		end
+	end
+end)
+task.spawn(function()
+	local toggle = PrizzSettings.LoopedCmds.AutoRe
+	task.spawn(function()
+		while true do
+			task.wait(1)
+			if toggle == true then
+				toggle = PrizzSettings.LoopedCmds.AutoRe
+				if Variables.player:FindFirstChild("PlayerGui") then
+					if Variables.player.PlayerGui:FindFirstChild("Home") then
+						if Variables.player.PlayerGui.Home:FindFirstChild("IntroFrame") then
+							if Variables.player.PlayerGui.Home.IntroFrame.Visible == false then
+								local hum = Variables.player.Character and Variables.player.Character:FindFirstChild("Humanoid") or nil
+								if hum then
+									if hum.Health > 0 then
+										if rdb == false then
+											curpos = Variables.player.Character.HumanoidRootPart.CFrame
+										end
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+			if autorestop == true then
+				break
+			end
+		end
+	end)
+end)
+
+autogunscon = Variables.player.CharacterAdded:Connect(function(c)
+	local toggle = PrizzSettings.LoopedCmds.AutoGuns
+	c:WaitForChild("HumanoidRootPart")
+	if toggle == true then
+		LightFunctions.GiveGun("M4A1")
+		task.wait(2)
+		LightFunctions.GiveGun("AK47")
+		task.wait(2)
+		LightFunctions.GiveGun("Sniper")
+		task.wait(2)
+		if game.Players.LocalPlayer.Team.Name == "Guards" then
+			LightFunctions.GiveGun("RemingtonGuards")
+		elseif game.Players.LocalPlayer.Team.Name == "Inmates" then
+			LightFunctions.GiveGun("RemingtonGuards")
+		elseif game.Players.LocalPlayer.Team.Name == "Criminals" then 
+			LightFunctions.GiveGun("RemingtonCrim")
+		end
+		task.wait(2)
+		LightFunctions.GiveGun("Revolver")
+		task.wait(2)
+		LightFunctions.GiveGun("MP5")
+	end
+end)
 
 function StringToBool(str)
 	str = str:lower()
@@ -1487,7 +1523,7 @@ local OnCommand = function(text)
 			table.remove(Args, 1)
 		end
 	end
-	if Args[1] == "/revert" or Args[1] == Variables.CurrentPrefix .. "/revert" then
+	if Args[1] == "/revert" or Args[1] == Variables.CurrentPrefix .. "revert" then
 		Variables.CurrentPrefix = "?"; MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 		savedClosedFramePosition = UDim2.new(0.499449551, 0, 0.128650904, 0)
 		if not MainFrame.Visible then
@@ -1502,14 +1538,14 @@ local OnCommand = function(text)
 		return args == Args[1]:sub(#Variables.CurrentPrefix+1):lower()
 	end
 	if cmd("revert") or cmd("resetgui") or cmd("rvgui") then
-	    Variables.CurrentPrefix = "?"; MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+		Variables.CurrentPrefix = "?"; MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 		savedClosedFramePosition = UDim2.new(0.499449551, 0, 0.128650904, 0)
 		if not MainFrame.Visible then
 			MainFrame.Visible = true; PLAdmin:FindFirstChild("TextButton"):Destroy()
 			Debug.deprint("Success", "Successfully reverted the GUI")
 		end
-      elseif cmd("inmate") or cmd("inmates") or cmd("in") then
-	    if #Services.teams.Inmates:GetPlayers() > 6 then
+	elseif cmd("inmate") or cmd("inmates") or cmd("in") then
+		if #Services.teams.Inmates:GetPlayers() > 6 then
 			Notif("Error", "Inmates team full!")
 			return
 		end
@@ -1528,64 +1564,188 @@ local OnCommand = function(text)
 	elseif cmd("neutral") or cmd("neutrals") or cmd("ne") then
 		LightFunctions.ChangeTeam("Neutral")
 		Notif("OK", "Changed team to neutral.")
-    elseif cmd("unload") then
-	    CoreFunctions.UnloadScript()
-	return
+	elseif cmd("unload") then
+		CoreFunctions.UnloadScript()
+		return
 	elseif cmd("mp") or cmd("mp5") then
-	    LightFunctions.GiveGun("MP5")
+		LightFunctions.GiveGun("MP5")
 	elseif cmd("ak") or cmd("ak47") or cmd("ak-47") then
 		LightFunctions.GiveGun("AK47")
 	elseif cmd("remington") or cmd("shotgun") or cmd("rem") then
-	    if game.Players.LocalPlayer.Team.Name == "Guards" then
-		LightFunctions.GiveGun("RemingtonGuards")
+		if game.Players.LocalPlayer.Team.Name == "Guards" then
+			LightFunctions.GiveGun("RemingtonGuards")
 		elseif game.Players.LocalPlayer.Team.Name == "Inmates" then
-		LightFunctions.GiveGun("RemingtonGuards")
+			LightFunctions.GiveGun("RemingtonGuards")
 		elseif game.Players.LocalPlayer.Team.Name == "Criminals" then 
-		LightFunctions.GiveGun("RemingtonCrim")
+			LightFunctions.GiveGun("RemingtonCrim")
 		end
 	elseif cmd("m4") or cmd("m4a1") then
-			LightFunctions.GiveGun("M4A1")
+		LightFunctions.GiveGun("M4A1")
 	elseif cmd("fal") then
-			LightFunctions.GiveGun("FAL")
+		LightFunctions.GiveGun("FAL")
 	elseif cmd("sniper") or cmd("m700") then
-			LightFunctions.GiveGun("Sniper")
+		LightFunctions.GiveGun("Sniper")
 	elseif cmd("revolver") or cmd("pistol") then
-			LightFunctions.GiveGun("Revolver")
+		LightFunctions.GiveGun("Revolver")
 	elseif cmd("autoguns") or cmd("ag") then
-		PrizzSettings.LoopedCmds.AutoGuns = StringToBool(Args[2]) or not PrizzSettings.LoopedCmds.AutoGuns
-		LightFunctions.AutoGuns(PrizzSettings.LoopedCmds.AutoGuns)
+		if not Args[2] or StringToBool(Args[2]) ~= true or StringToBool(Args[2]) ~= false then
+			PrizzSettings.LoopedCmds.AutoGuns = not PrizzSettings.LoopedCmds.AutoGuns
+		else
+			PrizzSettings.LoopedCmds.AutoGuns = StringToBool(Args[2])
+		end
+		local toggle = PrizzSettings.LoopedCmds.AutoGuns
+		task.spawn(function()
+			if toggle == true then
+				LightFunctions.GiveGun("M4A1")
+				task.wait(2)
+				LightFunctions.GiveGun("AK47")
+				task.wait(2)
+				if game.Players.LocalPlayer.Team.Name == "Guards" then
+					LightFunctions.GiveGun("RemingtonGuards")
+				elseif game.Players.LocalPlayer.Team.Name == "Inmates" then
+					LightFunctions.GiveGun("RemingtonGuards")
+				elseif game.Players.LocalPlayer.Team.Name == "Criminals" then 
+					LightFunctions.GiveGun("RemingtonCrim")
+				end
+				task.wait(2)
+				LightFunctions.GiveGun("Sniper")
+				task.wait(2)
+				LightFunctions.GiveGun("Revolver")
+				task.wait(2)
+				LightFunctions.GiveGun("MP5")
+			end
+		end)
+		if toggle == false then
+			if autogunscon ~= nil then
+				autogunscon:Disconnect()
+				autogunscon = nil
+			end
+		end
+		Notif("Auto Guns","Auto Guns is now: "..tostring(toggle),3)
 	elseif cmd("automod") or cmd("autogunmod") or cmd("agm") or cmd("am") then
-		PrizzSettings.LoopedCmds.AutoGunMod = StringToBool(Args[2]) or not PrizzSettings.LoopedCmds.AutoGunMod
-		LightFunctions.AutoGunMod(PrizzSettings.LoopedCmds.AutoGunMod)
+		if not Args[2] or StringToBool(Args[2]) ~= true or StringToBool(Args[2]) ~= false then
+			PrizzSettings.LoopedCmds.AutoGunMod = not PrizzSettings.LoopedCmds.AutoGunMod
+		else
+			PrizzSettings.LoopedCmds.AutoGunMod = StringToBool(Args[2])
+		end
+		local toggle = PrizzSettings.LoopedCmds.AutoGunMod
+		if toggle == false then
+			if autogunmodcon ~= nil then
+				autogunmodcon:Disconnect()
+				autogunmodcon = nil
+			end
+		end
+		Notif("Auto Gun mod","Auto Gun Mod is now: "..tostring(toggle),3)
 	elseif cmd("antitase") or cmd("at") then
-		PrizzSettings.LoopedCmds.AntiTase = StringToBool(Args[2]) or not PrizzSettings.LoopedCmds.AntiTase
-		LightFunctions.AntiTaze(PrizzSettings.LoopedCmds.AntiTase)
+		if not Args[2] or StringToBool(Args[2]) ~= true or StringToBool(Args[2]) ~= false then
+			PrizzSettings.LoopedCmds.AntiTase = not PrizzSettings.LoopedCmds.AntiTase
+		else
+			PrizzSettings.LoopedCmds.AntiTase = StringToBool(Args[2])
+		end
+		local toggle = PrizzSettings.LoopedCmds.AntiTase
+		task.spawn(function()
+			if toggle == true then
+				local chr = Variables.player.Character or Variables.player.CharacterAdded:Wait()
+				local hum = chr:WaitForChild("Humanoid")
+				if antitasedb == false then
+					antitasedb = true
+					local ogws = hum.WalkSpeed
+					repeat
+						if math.random(-5,5) == 0 then
+							rsv.RenderStepped:Wait()
+						end
+						if hum.WalkSpeed < 1 and not hum.Parent:FindFirstChildWhichIsA("BillboardGui",true) then
+							hum.WalkSpeed = ogws
+							task.spawn(function()
+								for _,anims in pairs(hum:GetPlayingAnimationTracks()) do
+									anims:Stop()
+								end
+							end)
+						end
+					until antitasedb == false
+				end
+			end
+		end)
+		if toggle == false then
+			if antitasecon ~= nil then
+				antitasecon:Disconnect()
+				antitasecon = nil
+			end
+		end
+		Notif("Anti Tase","Anti Tase is now: "..tostring(toggle),3)
 	elseif cmd("autoreload") or cmd("ar") then
-		PrizzSettings.LoopedCmds.AutoReload = StringToBool(Args[2]) or not PrizzSettings.LoopedCmds.AutoReload
-		LightFunctions.AutoReload(PrizzSettings.LoopedCmds.AutoReload)
+		if not Args[2] or StringToBool(Args[2]) ~= true or StringToBool(Args[2]) ~= false then
+			PrizzSettings.LoopedCmds.AutoReload = not PrizzSettings.LoopedCmds.AutoReload
+		else
+			PrizzSettings.LoopedCmds.AutoReload = StringToBool(Args[2])
+		end
+		if autoreloadcon ~= nil then
+			autoreloadcon:Disconnect()
+			autoreloadcon = nil
+		end
+		Notif("Auto Reload","Auto Reload is now: "..tostring(toggle))
 	elseif cmd("autore") or cmd("autorespawn") or cmd("are") then
-		PrizzSettings.LoopedCmds.AutoRe = StringToBool(Args[2]) or not PrizzSettings.LoopedCmds.AutoRe
-		LightFunctions.AutoRe(PrizzSettings.LoopedCmds.AutoRe)
+		if not Args[2] or StringToBool(Args[2]) ~= true or StringToBool(Args[2]) ~= false then
+			PrizzSettings.LoopedCmds.AutoRe = not PrizzSettings.LoopedCmds.AutoRe
+		else
+			PrizzSettings.LoopedCmds.AutoRe = StringToBool(Args[2])
+		end
+		local toggle = PrizzSettings.LoopedCmds.AutoRe
+		if toggle == false then
+			if autorecon ~= nil then
+				autorecon:Disconnect()
+				autorecon = nil
+			end
+		end
+		Notif("Auto Re","Auto Re is now: "..tostring(toggle))
 	elseif cmd("firerate") or cmd("fr") then
-		PrizzSettings.GunMods.FireRate = tonumber(Args[2]) or PrizzSettings.GunMods.FireRate
+		if not Args[2] or typeof(tonumber(Args[2])) ~= "number" then
+			PrizzSettings.GunMods.FireRate = 0
+		else
+			PrizzSettings.GunMods.FireRate = tonumber(Args[2])
+		end
 		LightFunctions.ModGuns("FireRate",PrizzSettings.GunMods.FireRate)
 	elseif cmd("reloadtime") or cmd("rt") then
-		PrizzSettings.GunMods.ReloadTime = tonumber(Args[2]) or PrizzSettings.GunMods.ReloadTime
+		if not Args[2] or typeof(tonumber(Args[2])) ~= "number" then
+			PrizzSettings.GunMods.ReloadTime = 0
+		else
+			PrizzSettings.GunMods.ReloadTime = tonumber(Args[2])
+		end
 		LightFunctions.ModGuns("ReloadTime",PrizzSettings.GunMods.ReloadTime)
 	elseif cmd("range") or cmd("rg") then
-		PrizzSettings.GunMods.Range = tonumber(Args[2]) or PrizzSettings.GunMods.Range
+		if not Args[2] or typeof(tonumber(Args[2])) ~= "number" then
+			PrizzSettings.GunMods.Range = 100000
+		else
+			PrizzSettings.GunMods.Range = tonumber(Args[2])
+		end
 		LightFunctions.ModGuns("Range",PrizzSettings.GunMods.Range)
 	elseif cmd("spreadradius") or cmd("spread") or cmd("sr") then
-		PrizzSettings.GunMods.SpreadRadius = tonumber(Args[2]) or PrizzSettings.GunMods.SpreadRadius
+		if not Args[2] or typeof(tonumber(Args[2])) ~= "number" then
+			PrizzSettings.GunMods.SpreadRadius = 0
+		else
+			PrizzSettings.GunMods.SpreadRadius = tonumber(Args[2])
+		end
 		LightFunctions.ModGuns("SpreadRadius",PrizzSettings.GunMods.SpreadRadius)
 	elseif cmd("chargetime") or cmd("ct") then
-		PrizzSettings.GunMods.ChargeTime = tonumber(Args[2]) or PrizzSettings.GunMods.ChargeTime
+		if not Args[2] or typeof(tonumber(Args[2])) ~= "number" then
+			PrizzSettings.GunMods.ChargeTime = 0
+		else
+			PrizzSettings.GunMods.ChargeTime = tonumber(Args[2])
+		end
 		LightFunctions.ModGuns("ChargeTime",PrizzSettings.GunMods.ChargeTime)
 	elseif cmd("accuraterange") or cmd("arg") then
-		PrizzSettings.GunMods.AccurateRange = StringToBool(Args[2]) or not PrizzSettings.GunMods.AccurateRange
+		if not Args[2] or StringToBool(Args[2]) ~= true or StringToBool(Args[2]) ~= false then
+			PrizzSettings.GunMods.AccurateRange = not PrizzSettings.GunMods.AccurateRange
+		else
+			PrizzSettings.GunMods.AccurateRange = StringToBool(Args[2])
+		end
 		LightFunctions.ModGuns("AccurateRange",PrizzSettings.GunMods.AccurateRange)
 	elseif cmd("autofire") or cmd("af") then
-		PrizzSettings.GunMods.AutoFire = StringToBool(Args[2]) or not PrizzSettings.GunMods.AutoFire
+		if not Args[2] or StringToBool(Args[2]) ~= true or StringToBool(Args[2]) ~= false then
+			PrizzSettings.GunMods.AutoFire = not PrizzSettings.GunMods.AutoFire
+		else
+			PrizzSettings.GunMods.AutoFire = StringToBool(Args[2])
+		end
 		LightFunctions.ModGuns("AutoFire",PrizzSettings.GunMods.AutoFire)
 	else
 		Notif("Error", tostring(Args[1]) .. " is not a valid command.")
@@ -1598,13 +1758,13 @@ Variables.player.Chatted:Connect(function(text)
 		chatdebounce = true
 		local success, errors = pcall(function()
 			OnCommand(text)
-	end);
-	    if not success then
+		end);
+		if not success then
 			Debug.dewarn("PrizzLife_Error: " .. tostring(errors))
 		end
-		  task.wait(0.6)
-		  chatdebounce = nil
-   end
+		task.wait(0.6)
+		chatdebounce = nil
+	end
 end)
 
 
@@ -1621,7 +1781,7 @@ ExecBar.FocusLost:Connect(function(enterPressed, inputObj)
 			end
 		end)
 		if not success then
-		Debug.dewarn("PrizzLife_Error: " .. tostring(errors) .. ".")
+			Debug.dewarn("PrizzLife_Error: " .. tostring(errors) .. ".")
 		end
 		task.wait()
 		ExecBar.Text = ""
@@ -1659,27 +1819,27 @@ AddList("SURVIVAL CMDS",false,true)
 AddList("autore / are [true/false optional]","Makes you spawn in the position you died",false)
 AddList("antitase / at [true/false optional]","Makes you basically immune to tases",false)
 if (PrizzSettings.ACBypass or (PrizzSettings.Debug.Active and PrizzSettings.Debug.ACBypass)) then
-  AddList("TEAM CMDS", false, true) --TEAM CMDS
-  AddList("guard / guards / gu", "Alias to team guards", false) --V
-  AddList("inmate / inmates / in", "Alias to team inmates", false) --V
-  AddList("criminal / criminals / cr", "Alias to team criminals", false) --V
-  AddList("neutral / neutrals / ne", "Alias to team neutrals", false) --V
-  else
-    AddList("TEAM CMDS (DISABLED)", false, true) --TEAM CMDS
+	AddList("TEAM CMDS", false, true) --TEAM CMDS
+	AddList("guard / guards / gu", "Alias to team guards", false) --V
+	AddList("inmate / inmates / in", "Alias to team inmates", false) --V
+	AddList("criminal / criminals / cr", "Alias to team criminals", false) --V
+	AddList("neutral / neutrals / ne", "Alias to team neutrals", false) --V
+else
+	AddList("TEAM CMDS (DISABLED)", false, true) --TEAM CMDS
 end
 --NewToggleList("LocalPlayer_RunSpeed", "Default value is: 24", "click", function(arg)
-		--local str = tonumber(arg)
-		--Saved.RunSpeed = str
+--local str = tonumber(arg)
+--Saved.RunSpeed = str
 --end, true)
 --NewToggleList("ScriptSetting_AntiTase", "Enable, or disable antitase functions.", PrizzSettings.AntiTase, function()
-		--PrizzSettings.AntiTase = not PrizzSettings.AntiTase
-		--Notif("Changed", "Toggled AntiTase to " .. tostring(PrizzSettings.AntiTase) .. ".")
-		--return PrizzSettings.AntiTase
+--PrizzSettings.AntiTase = not PrizzSettings.AntiTase
+--Notif("Changed", "Toggled AntiTase to " .. tostring(PrizzSettings.AntiTase) .. ".")
+--return PrizzSettings.AntiTase
 --end)
 NewToggleList("ScriptSetting_Debug", "Enable, or disable debug functions.", PrizzSettings.Debug, function()
-		PrizzSettings.Debug = not PrizzSettings.Debug
-		Notif("Changed", "Toggled Debug to " .. tostring(PrizzSettings.Debug) .. ".")
-		return PrizzSettings.Debug
+	PrizzSettings.Debug = not PrizzSettings.Debug
+	Notif("Changed", "Toggled Debug to " .. tostring(PrizzSettings.Debug) .. ".")
+	return PrizzSettings.Debug
 end)
 -- COMMANDS LIST --
 
@@ -1692,95 +1852,95 @@ PLINIT.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 if (PrizzSettings.ACBypass or (PrizzSettings.Debug.Active and PrizzSettings.Debug.ACBypass)) then
 
-local data1, data2, data3 =
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/nivalos0/PrizzLife/refs/heads/main/Init/TeamGuiRemake.lua"))()
+	local data1, data2, data3 =
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/nivalos0/PrizzLife/refs/heads/main/Init/TeamGuiRemake.lua"))()
 
-local TeamFrame = data1
-local CreditsFrame = data2
-local TEAMs = data3
+	local TeamFrame = data1
+	local CreditsFrame = data2
+	local TEAMs = data3
 
--- Buttons
-local InmateBtn = TeamFrame:FindFirstChild("InmateBtn")
-local GuardBtn = TeamFrame:FindFirstChild("GuardBtn")
-local CrimBtn = TeamFrame:FindFirstChild("CrimBtn")
--- Buttons
+	-- Buttons
+	local InmateBtn = TeamFrame:FindFirstChild("InmateBtn")
+	local GuardBtn = TeamFrame:FindFirstChild("GuardBtn")
+	local CrimBtn = TeamFrame:FindFirstChild("CrimBtn")
+	-- Buttons
 
-InmateBtn.Activated:Connect(
-    function()
-        if #Services.teams.Inmates:GetPlayers() > 7 then
-            Notif("Cannot join team.", "Inmates team is full!", 6)
-        else
-          CoreFunctions.TeamFunction("Inmates", false)
-  end
-end)
+	InmateBtn.Activated:Connect(
+		function()
+			if #Services.teams.Inmates:GetPlayers() > 7 then
+				Notif("Cannot join team.", "Inmates team is full!", 6)
+			else
+				CoreFunctions.TeamFunction("Inmates", false)
+			end
+		end)
 
-GuardBtn.Activated:Connect(
-    function()
-        if #Services.teams.Guards:GetPlayers() > 7 then
-            Notif("Cannot join team.", "Guards team is full!", 6)
-        else
-          CoreFunctions.TeamFunction("Guards", false)
-    end
-end)
+	GuardBtn.Activated:Connect(
+		function()
+			if #Services.teams.Guards:GetPlayers() > 7 then
+				Notif("Cannot join team.", "Guards team is full!", 6)
+			else
+				CoreFunctions.TeamFunction("Guards", false)
+			end
+		end)
 
-CrimBtn.Activated:Connect(
-    function()
-      local plr = Services.players.LocalPlayer
-      local char = plr.Character
-      local hrp = char.HumanoidRootPart
-      if #Services.teams.Inmates:GetPlayers() > 7 then
-            Notif("Cannot join team.", "Inmates team is full!", 6)
-      else
-        CoreFunctions.TeamFunction("Inmates", false)
-        task.wait(0.5)
-        local hrp = Services.players.LocalPlayer.Character.HumanoidRootPart
-        hrp.CFrame = Positions.CrimPos
-    end
-  end
-)
+	CrimBtn.Activated:Connect(
+		function()
+			local plr = Services.players.LocalPlayer
+			local char = plr.Character
+			local hrp = char.HumanoidRootPart
+			if #Services.teams.Inmates:GetPlayers() > 7 then
+				Notif("Cannot join team.", "Inmates team is full!", 6)
+			else
+				CoreFunctions.TeamFunction("Inmates", false)
+				task.wait(0.5)
+				local hrp = Services.players.LocalPlayer.Character.HumanoidRootPart
+				hrp.CFrame = Positions.CrimPos
+			end
+		end
+	)
 
-TeamChangeConnect =
-    Services.players.LocalPlayer:GetPropertyChangedSignal("Team"):Connect(
-    function()
-        if Services.players.LocalPlayer.Team and Services.players.LocalPlayer.Team.Name == "Neutral" then
-            TeamFrame.Visible = true
-            CreditsFrame.Visible = true
-        else
-            TeamFrame.Visible = false
-            CreditsFrame.Visible = false
-        end
-    end
-)
+	TeamChangeConnect =
+		Services.players.LocalPlayer:GetPropertyChangedSignal("Team"):Connect(
+			function()
+				if Services.players.LocalPlayer.Team and Services.players.LocalPlayer.Team.Name == "Neutral" then
+					TeamFrame.Visible = true
+					CreditsFrame.Visible = true
+				else
+					TeamFrame.Visible = false
+					CreditsFrame.Visible = false
+				end
+			end
+		)
 
-TeamFrame.Visible = Services.players.LocalPlayer.Team.Name == "Neutral"
-CreditsFrame.Visible = Services.players.LocalPlayer.Team.Name == "Neutral"
--- GUIS --
+	TeamFrame.Visible = Services.players.LocalPlayer.Team.Name == "Neutral"
+	CreditsFrame.Visible = Services.players.LocalPlayer.Team.Name == "Neutral"
+	-- GUIS --
 else
-    Notif("Warning", "Team change functions, and GUI's are automatically disabled to prevent bans.")
-  return
+	Notif("Warning", "Team change functions, and GUI's are automatically disabled to prevent bans.")
+	return
 end
 
 
 -- SHITTY EXECUTOR DETECTION --
 local ExecTests = {
-  CLIPA =
-    setclipboard or toclipboard or (Clipboard and Clipboard.set);
-    HTTPA =
-    (syn and syn.request) or (http and http.request) or http_request or request;
-    GCA = getconnections ~= nil;
+	CLIPA =
+		setclipboard or toclipboard or (Clipboard and Clipboard.set);
+	HTTPA =
+		(syn and syn.request) or (http and http.request) or http_request or request;
+	GCA = getconnections ~= nil;
 }
 
 -- Test #1
 if not ExecTests.CLIPA or not ExecTests.HTTPA or not ExecTests.GCA then
-    Notif("Your executor might be too shitty!", "Some of this script might not work for you!", 6)
-    PrizzSettings.ShittyExecutor = true;
+	Notif("Your executor might be too shitty!", "Some of this script might not work for you!", 6)
+	PrizzSettings.ShittyExecutor = true;
 end
 
 -- Notification
 if PrizzSettings.ShittyExecutor then
-  Notif("Shitty Executor", "Use Ronix Windows, or use Delta if your on iOS, or Android")
-  else
-    --Notif("Good Executor", "You have a good executor!")
+	Notif("Shitty Executor", "Use Ronix Windows, or use Delta if your on iOS, or Android")
+else
+	--Notif("Good Executor", "You have a good executor!")
 end
 -- SHITTY EXECUTOR DETECTION --
 
@@ -1788,19 +1948,19 @@ end
 -- COOL --
 -- Debug Notifications --
 if PrizzSettings.Debug.Active then
-  if PrizzSettings.Debug.ShowNotification then
-    if (PrizzSettings.Debug.Active and PrizzSettings.Debug.ACBypass and PrizzSettings.Debug.Warns and PrizzSettings.Debug.Prints) then
-  Notif("Settings", "Debug Mode is currently active, and all Debug features are active")
-    elseif PrizzSettings.Debug.Active and PrizzSettings.Debug.Prints then
-  Notif("Settings", "Debug Mode is currently active, and Prints are enabled.")
-    elseif (PrizzSettings.Debug.Active and PrizzSettings.Debug.Warns) then
-  Notif("Settings", "Debug Mode is currently active, and Warns are enabled.")
-    elseif (PrizzSettings.Debug.Active and PrizzSettings.Debug.ACBypass) then
-  Notif("Settings", "Debug Mode is currently active, and the AntiCheat Bypass is enabled")
-    else
-    
-    end
-  end
+	if PrizzSettings.Debug.ShowNotification then
+		if (PrizzSettings.Debug.Active and PrizzSettings.Debug.ACBypass and PrizzSettings.Debug.Warns and PrizzSettings.Debug.Prints) then
+			Notif("Settings", "Debug Mode is currently active, and all Debug features are active")
+		elseif PrizzSettings.Debug.Active and PrizzSettings.Debug.Prints then
+			Notif("Settings", "Debug Mode is currently active, and Prints are enabled.")
+		elseif (PrizzSettings.Debug.Active and PrizzSettings.Debug.Warns) then
+			Notif("Settings", "Debug Mode is currently active, and Warns are enabled.")
+		elseif (PrizzSettings.Debug.Active and PrizzSettings.Debug.ACBypass) then
+			Notif("Settings", "Debug Mode is currently active, and the AntiCheat Bypass is enabled")
+		else
+
+		end
+	end
 end
 -- Debug Notifications --
 
