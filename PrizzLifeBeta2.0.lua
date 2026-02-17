@@ -888,7 +888,6 @@ local TeleportLocations = {
 	Roof = CFrame.new(951.751, 134.812, 2252.351),
 }
 
-
 -- ITEM LOCATIONS --
 -- Item Locations Table
 local ItemLocations = {
@@ -1589,13 +1588,13 @@ task.spawn(function()
 		task.wait()
 		if espstop == true then
 			for _, plrs in pairs(Services.players:GetPlayers()) do
-				local char = plrs.Character
+				local char = plrs.Character or plrs.CharacterAdded:Wait()
 				EspLib.RemoveEsp(char)
 			end
 			break
 		end
 		for _, plrs in pairs(Services.players:GetPlayers()) do
-			local char = plrs.Character
+			local char = plrs.Character or plrs.CharacterAdded:Wait()
 			EspLib.UpdateEsp(char)
 			if PrizzSettings.LoopedCmds.Esp == true then
 				if plrs.UserId ~= Variables.player.UserId then
@@ -1963,6 +1962,13 @@ local OnCommand = function(text)
 		CoreFunctions.TPBypass(TeleportLocations.BreakRoom)
 	elseif cmd("roof") then
 		CoreFunctions.TPBypass(TeleportLocations.Roof)
+	elseif cmd("esp") then
+		if not Args[2] or StringToBool(Args[2]) ~= true or StringToBool(Args[2]) ~= false then
+			PrizzSettings.LoopedCmds.Esp = not PrizzSettings.LoopedCmds.Esp
+		else
+			PrizzSettings.LoopedCmds.Esp = StringToBool(Args[2])
+		end
+		Notif("Esp","Esp is now: "..tostring(PrizzSettings.LoopedCmds.Esp))
 	else
 		Notif("Error", tostring(Args[1]) .. " is not a valid command.")
 	end
@@ -2057,6 +2063,8 @@ AddList("roof","teleports you to roof",false)
 AddList("SURVIVAL CMDS",false,true)
 AddList("autore / are [true/false optional]","Makes you spawn in the position you died",false)
 AddList("antitase / at [true/false optional]","Makes you basically immune to tases",false)
+AddList("VISUAL CMDS",false,true)
+AddList("esp","Makes you see other players through walls",false)
 if (PrizzSettings.ACBypass or (PrizzSettings.Debug.Active and PrizzSettings.Debug.ACBypass)) then
 	AddList("TEAM CMDS", false, true) --TEAM CMDS
 	AddList("guard / guards / gu", "Alias to team guards", false) --V
