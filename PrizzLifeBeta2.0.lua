@@ -89,10 +89,19 @@ local PrizzSettings = {
 	}; -- Debug prints, and warns.
 	LoopedCmds = {
 		AntiTase = false,
-		AutoGuns = false,
+		AutoGuns = {
+			FAL = false,
+			M4A1 = false,
+			Revolver = false,
+			MP5 = false,
+			M700 = false,
+			AK47 = false,
+			Remington = false,
+		},
 		AutoReload = false,
 		AutoGunMod = false,
 		AutoRe = true,
+		Esp = false,
 	};
 	GunMods = {
 		FireRate = 0,
@@ -859,6 +868,26 @@ local GunLocations = {
 }
 -- GUN LOCATIONS --
 
+local TeleportLocations = {
+	Houses = CFrame.new(-294, 54, 2485),
+	CrimBase = CFrame.new(-930, 94, 2055),
+	SecretDoor = CFrame.new(-63, 11, 1349),
+	PrisonEntrance = CFrame.new(463, 98, 2217),
+	WatchTowerOne = CFrame.new(503, 126, 2588),
+	CarSpawn = CFrame.new(-504, 54, 1771),
+	GuardRoom = CFrame.new(826, 100, 2294),
+	Cafeteria = CFrame.new(900, 100, 2276),
+	Nexus = CFrame.new(888, 100, 2387),
+	JailCells = CFrame.new(917, 100, 2447),
+	BreakRoom = CFrame.new(770, 100, 2236),
+	Yard = CFrame.new(795, 98, 2497),
+	PoliceCarSpawn = CFrame.new(616, 98, 2510),
+	Sewers = CFrame.new(918, 79, 2273),
+	WatchTowerTwo = CFrame.new(824, 126, 2587),
+	WatchTowerThree = CFrame.new(503.983, 125.840, 2071.151),
+	Roof = CFrame.new(951.751, 134.812, 2252.351),
+}
+
 
 -- ITEM LOCATIONS --
 -- Item Locations Table
@@ -1085,6 +1114,7 @@ local antitasecon = nil
 local autoreloadcon = nil
 local autorecon = nil
 local autorestop = false
+local espstop = false
 
 CoreFunctions.UnloadScript = function()
 	if PLAdmin then
@@ -1474,15 +1504,22 @@ task.spawn(function()
 end)
 
 autogunscon = Variables.player.CharacterAdded:Connect(function(c)
-	local toggle = PrizzSettings.LoopedCmds.AutoGuns
+	local guns = PrizzSettings.LoopedCmds.AutoGuns
 	c:WaitForChild("HumanoidRootPart")
-	if toggle == true then
-		LightFunctions.GiveGun("M4A1")
-		task.wait(2)
+	task.wait(1.5)
+	if guns.FAL == true then
+		LightFunctions.GiveGun("FAL")
+	end
+	task.wait(1.5)
+	if guns.MP5 == true then
+		LightFunctions.GiveGun("MP5")
+	end
+	task.wait(1.5)
+	if guns.AK47 == true then
 		LightFunctions.GiveGun("AK47")
-		task.wait(2)
-		LightFunctions.GiveGun("Sniper")
-		task.wait(2)
+	end
+	task.wait(1.5)
+	if guns.Remington == true then
 		if game.Players.LocalPlayer.Team.Name == "Guards" then
 			LightFunctions.GiveGun("RemingtonGuards")
 		elseif game.Players.LocalPlayer.Team.Name == "Inmates" then
@@ -1490,10 +1527,18 @@ autogunscon = Variables.player.CharacterAdded:Connect(function(c)
 		elseif game.Players.LocalPlayer.Team.Name == "Criminals" then 
 			LightFunctions.GiveGun("RemingtonCrim")
 		end
-		task.wait(2)
+	end
+	task.wait(1.5)
+	if guns.M700 == true then
+		LightFunctions.GiveGun("Sniper")
+	end
+	task.wait(1.5)
+	if guns.Revolver == true then
 		LightFunctions.GiveGun("Revolver")
-		task.wait(2)
-		LightFunctions.GiveGun("MP5")
+	end
+	task.wait(1.5)	
+	if guns.M4A1 == true then
+		LightFunctions.GiveGun("M4A1")
 	end
 end)
 
@@ -1507,6 +1552,62 @@ function StringToBool(str)
 		return nil
 	end
 end
+
+local EspLib = {}
+
+EspLib.AddEsp = function(char)
+	if not char:FindFirstChild("ESP_HL") then
+		local hl = Instance.new("Highlight")
+		hl.Name = "ESP_HL"
+		if Services.players:GetPlayerFromCharacter(char) then
+			local plar = Services.players:GetPlayerFromCharacter(char)
+			hl.FillColor = plar.TeamColor.Color
+			hl.OutlineColor = plar.TeamColor.Color
+		end
+		hl.Parent = char
+	end
+end
+
+EspLib.UpdateEsp = function(char)
+	if char:FindFirstChild("ESP_HL") then
+		if Services.players:GetPlayerFromCharacter(char) then
+			local plar = Services.players:GetPlayerFromCharacter(char)
+			hl.FillColor = plar.TeamColor.Color
+			hl.OutlineColor = plar.TeamColor.Color
+		end
+	end
+end
+
+EspLib.RemoveEsp = function(char)
+	if char:FindFirstChild("ESP_HL") then
+		char["ESP_HL"]:Destroy()
+	end
+end
+
+task.spawn(function()
+	while true do
+		task.wait()
+		if espstop == true then
+			for _, plrs in pairs(Services.players:GetPlayers()) do
+				local char = plrs.Character
+				EspLib.RemoveEsp(char)
+			end
+			break
+		end
+		for _, plrs in pairs(Services.players:GetPlayers()) do
+			local char = plrs.Character
+			EspLib.UpdateEsp(char)
+			if PrizzSettings.LoopedCmds.Esp == true then
+				if plrs.UserId ~= Variables.player.UserId then
+					EspLib.AddEsp(char)
+				end
+			else
+				EspLib.RemoveEsp(char)
+			end
+		end
+	end
+end)
+
 
 -- COMMANDS FUNCTIONS --
 local chatdebounce = false
@@ -1525,7 +1626,7 @@ local OnCommand = function(text)
 			table.remove(Args, 1)
 		end
 	end
-	if Args[1] == "/revert" or Args[1] == Variables.CurrentPrefix .. "revert" then
+	if Args[1] == "/revert" or Args[1] == Variables.CurrentPrefix .. "/revert" then
 		Variables.CurrentPrefix = "?"; MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 		savedClosedFramePosition = UDim2.new(0.499449551, 0, 0.128650904, 0)
 		if not MainFrame.Visible then
@@ -1589,13 +1690,13 @@ local OnCommand = function(text)
 		LightFunctions.GiveGun("Sniper")
 	elseif cmd("revolver") or cmd("pistol") then
 		LightFunctions.GiveGun("Revolver")
-	elseif cmd("autoguns") or cmd("ag") then
+	elseif cmd("autom4") or cmd("autom4a1") or cmd("am4") then
 		if not Args[2] or StringToBool(Args[2]) ~= true or StringToBool(Args[2]) ~= false then
-			PrizzSettings.LoopedCmds.AutoGuns = not PrizzSettings.LoopedCmds.AutoGuns
+			PrizzSettings.LoopedCmds.AutoGuns.M4A1 = not PrizzSettings.LoopedCmds.AutoGuns.M4A1
 		else
-			PrizzSettings.LoopedCmds.AutoGuns = StringToBool(Args[2])
+			PrizzSettings.LoopedCmds.AutoGuns.M4A1 = StringToBool(Args[2])
 		end
-		local toggle = PrizzSettings.LoopedCmds.AutoGuns
+		local toggle = PrizzSettings.LoopedCmds.AutoGuns.M4A1
 		task.spawn(function()
 			if toggle == true then
 				LightFunctions.GiveGun("M4A1")
@@ -1617,13 +1718,91 @@ local OnCommand = function(text)
 				LightFunctions.GiveGun("MP5")
 			end
 		end)
-		if toggle == false then
-			if autogunscon ~= nil then
-				autogunscon:Disconnect()
-				autogunscon = nil
-			end
+		Notif("Auto Guns","Auto M4A1 is now: "..tostring(toggle),3)
+	elseif cmd("automp") or cmd("automp5") or cmd("amp") then
+		if not Args[2] or StringToBool(Args[2]) ~= true or StringToBool(Args[2]) ~= false then
+			PrizzSettings.LoopedCmds.AutoGuns.MP5 = not PrizzSettings.LoopedCmds.AutoGuns.MP5
+		else
+			PrizzSettings.LoopedCmds.AutoGuns.MP5 = StringToBool(Args[2])
 		end
-		Notif("Auto Guns","Auto Guns is now: "..tostring(toggle),3)
+		local toggle = PrizzSettings.LoopedCmds.AutoGuns.MP5
+		task.spawn(function()
+			if toggle == true then
+				LightFunctions.GiveGun("MP5")
+			end
+		end)
+		Notif("Auto Guns","Auto MP5 is now: "..tostring(toggle),3)
+	elseif cmd("autorem") or cmd("autoremington") or cmd("autoshotgun") or cmd("arem") then
+		if not Args[2] or StringToBool(Args[2]) ~= true or StringToBool(Args[2]) ~= false then
+			PrizzSettings.LoopedCmds.AutoGuns.Remington = not PrizzSettings.LoopedCmds.AutoGuns.Remington
+		else
+			PrizzSettings.LoopedCmds.AutoGuns.Remington = StringToBool(Args[2])
+		end
+		local toggle = PrizzSettings.LoopedCmds.AutoGuns.Remington
+		task.spawn(function()
+			if toggle == true then
+				if game.Players.LocalPlayer.Team.Name == "Guards" then
+					LightFunctions.GiveGun("RemingtonGuards")
+				elseif game.Players.LocalPlayer.Team.Name == "Inmates" then
+					LightFunctions.GiveGun("RemingtonGuards")
+				elseif game.Players.LocalPlayer.Team.Name == "Criminals" then 
+					LightFunctions.GiveGun("RemingtonCrim")
+				end
+			end
+		end)
+		Notif("Auto Guns","Auto Remington is now: "..tostring(toggle),3)
+	elseif cmd("autorev") or cmd("autorevolver") or cmd("arev") then
+		if not Args[2] or StringToBool(Args[2]) ~= true or StringToBool(Args[2]) ~= false then
+			PrizzSettings.LoopedCmds.AutoGuns.Revolver = not PrizzSettings.LoopedCmds.AutoGuns.Revolver
+		else
+			PrizzSettings.LoopedCmds.AutoGuns.Revolver = StringToBool(Args[2])
+		end
+		local toggle = PrizzSettings.LoopedCmds.AutoGuns.Revolver
+		task.spawn(function()
+			if toggle == true then
+				LightFunctions.GiveGun("Revolver")
+			end
+		end)
+		Notif("Auto Guns","Auto Revolver is now: "..tostring(toggle),3)
+	elseif cmd("autofal") or cmd("afal") then
+		if not Args[2] or StringToBool(Args[2]) ~= true or StringToBool(Args[2]) ~= false then
+			PrizzSettings.LoopedCmds.AutoGuns.FAL = not PrizzSettings.LoopedCmds.AutoGuns.FAL
+		else
+			PrizzSettings.LoopedCmds.AutoGuns.FAL = StringToBool(Args[2])
+		end
+		local toggle = PrizzSettings.LoopedCmds.AutoGuns.FAL
+		task.spawn(function()
+			if toggle == true then
+				LightFunctions.GiveGun("FAL")
+			end
+		end)
+		Notif("Auto Guns","Auto FAL is now: "..tostring(toggle),3)
+	elseif cmd("autoak") or cmd("autoak47") or cmd("aak") then
+		if not Args[2] or StringToBool(Args[2]) ~= true or StringToBool(Args[2]) ~= false then
+			PrizzSettings.LoopedCmds.AutoGuns.AK47 = not PrizzSettings.LoopedCmds.AutoGuns.AK47
+		else
+			PrizzSettings.LoopedCmds.AutoGuns.AK47 = StringToBool(Args[2])
+		end
+		local toggle = PrizzSettings.LoopedCmds.AutoGuns.AK47
+		task.spawn(function()
+			if toggle == true then
+				LightFunctions.GiveGun("AK47")
+			end
+		end)
+		Notif("Auto Guns","Auto AK47 is now: "..tostring(toggle),3)
+	elseif cmd("autom700") or cmd("autosniper") or cmd("am700") then
+		if not Args[2] or StringToBool(Args[2]) ~= true or StringToBool(Args[2]) ~= false then
+			PrizzSettings.LoopedCmds.AutoGuns.M700 = not PrizzSettings.LoopedCmds.AutoGuns.M700
+		else
+			PrizzSettings.LoopedCmds.AutoGuns.M700 = StringToBool(Args[2])
+		end
+		local toggle = PrizzSettings.LoopedCmds.AutoGuns.M700
+		task.spawn(function()
+			if toggle == true then
+				LightFunctions.GiveGun("Sniper")
+			end
+		end)
+		Notif("Auto Guns","Auto AK47 is now: "..tostring(toggle),3)
 	elseif cmd("automod") or cmd("autogunmod") or cmd("agm") or cmd("am") then
 		if not Args[2] or StringToBool(Args[2]) ~= true or StringToBool(Args[2]) ~= false then
 			PrizzSettings.LoopedCmds.AutoGunMod = not PrizzSettings.LoopedCmds.AutoGunMod
@@ -1654,7 +1833,7 @@ local OnCommand = function(text)
 					local ogws = hum.WalkSpeed
 					repeat
 						if math.random(-5,5) == 0 then
-							rsv.RenderStepped:Wait()
+							Services.rsv.RenderStepped:Wait()
 						end
 						if hum.WalkSpeed < 1 and not hum.Parent:FindFirstChildWhichIsA("BillboardGui",true) then
 							hum.WalkSpeed = ogws
@@ -1681,9 +1860,12 @@ local OnCommand = function(text)
 		else
 			PrizzSettings.LoopedCmds.AutoReload = StringToBool(Args[2])
 		end
-		if autoreloadcon ~= nil then
-			autoreloadcon:Disconnect()
-			autoreloadcon = nil
+		local toggle  = PrizzSettings.LoopedCmds.AutoReload
+		if toggle == false then
+			if autoreloadcon ~= nil then
+				autoreloadcon:Disconnect()
+				autoreloadcon = nil
+			end
 		end
 		Notif("Auto Reload","Auto Reload is now: "..tostring(toggle))
 	elseif cmd("autore") or cmd("autorespawn") or cmd("are") then
@@ -1706,49 +1888,81 @@ local OnCommand = function(text)
 		else
 			PrizzSettings.GunMods.FireRate = tonumber(Args[2])
 		end
-		LightFunctions.ModGuns("FireRate",PrizzSettings.GunMods.FireRate)
+		LightFunctions.ModGuns("FireRate",PrizzSettings.GunMods.FireRate,true)
 	elseif cmd("reloadtime") or cmd("rt") then
 		if not Args[2] or typeof(tonumber(Args[2])) ~= "number" then
 			PrizzSettings.GunMods.ReloadTime = 0
 		else
 			PrizzSettings.GunMods.ReloadTime = tonumber(Args[2])
 		end
-		LightFunctions.ModGuns("ReloadTime",PrizzSettings.GunMods.ReloadTime)
+		LightFunctions.ModGuns("ReloadTime",PrizzSettings.GunMods.ReloadTime,true)
 	elseif cmd("range") or cmd("rg") then
 		if not Args[2] or typeof(tonumber(Args[2])) ~= "number" then
 			PrizzSettings.GunMods.Range = 100000
 		else
 			PrizzSettings.GunMods.Range = tonumber(Args[2])
 		end
-		LightFunctions.ModGuns("Range",PrizzSettings.GunMods.Range)
+		LightFunctions.ModGuns("Range",PrizzSettings.GunMods.Range,true)
 	elseif cmd("spreadradius") or cmd("spread") or cmd("sr") then
 		if not Args[2] or typeof(tonumber(Args[2])) ~= "number" then
 			PrizzSettings.GunMods.SpreadRadius = 0
 		else
 			PrizzSettings.GunMods.SpreadRadius = tonumber(Args[2])
 		end
-		LightFunctions.ModGuns("SpreadRadius",PrizzSettings.GunMods.SpreadRadius)
+		LightFunctions.ModGuns("SpreadRadius",PrizzSettings.GunMods.SpreadRadius,true)
 	elseif cmd("chargetime") or cmd("ct") then
 		if not Args[2] or typeof(tonumber(Args[2])) ~= "number" then
 			PrizzSettings.GunMods.ChargeTime = 0
 		else
 			PrizzSettings.GunMods.ChargeTime = tonumber(Args[2])
 		end
-		LightFunctions.ModGuns("ChargeTime",PrizzSettings.GunMods.ChargeTime)
+		LightFunctions.ModGuns("ChargeTime",PrizzSettings.GunMods.ChargeTime,true)
 	elseif cmd("accuraterange") or cmd("arg") then
 		if not Args[2] or StringToBool(Args[2]) ~= true or StringToBool(Args[2]) ~= false then
 			PrizzSettings.GunMods.AccurateRange = not PrizzSettings.GunMods.AccurateRange
 		else
 			PrizzSettings.GunMods.AccurateRange = StringToBool(Args[2])
 		end
-		LightFunctions.ModGuns("AccurateRange",PrizzSettings.GunMods.AccurateRange)
+		LightFunctions.ModGuns("AccurateRange",PrizzSettings.GunMods.AccurateRange,true)
 	elseif cmd("autofire") or cmd("af") then
 		if not Args[2] or StringToBool(Args[2]) ~= true or StringToBool(Args[2]) ~= false then
 			PrizzSettings.GunMods.AutoFire = not PrizzSettings.GunMods.AutoFire
 		else
 			PrizzSettings.GunMods.AutoFire = StringToBool(Args[2])
 		end
-		LightFunctions.ModGuns("AutoFire",PrizzSettings.GunMods.AutoFire)
+		LightFunctions.ModGuns("AutoFire",PrizzSettings.GunMods.AutoFire,true)
+	elseif cmd("nexus") or cmd("nex") then
+		CoreFunctions.TPBypass(TeleportLocations.Nexus)
+	elseif cmd("jailcells") or cmd("cells") then
+		CoreFunctions.TPBypass(TeleportLocations.JailCells)
+	elseif cmd("secretdoor") or cmd("door") then
+		CoreFunctions.TPBypass(TeleportLocations.SecretDoor)
+	elseif cmd("crimbase") or cmd("criminalbase") then
+		CoreFunctions.TPBypass(TeleportLocations.CrimBase)
+	elseif cmd("watchtower1") then
+		CoreFunctions.TPBypass(TeleportLocations.WatchTowerOne)
+	elseif cmd("watchtower2") then
+		CoreFunctions.TPBypass(TeleportLocations.WatchTowerTwo)
+	elseif cmd("watchtower3") then
+		CoreFunctions.TPBypass(TeleportLocations.WatchTowerThree)
+	elseif cmd("prisonentrance") or cmd("entrance") then
+		CoreFunctions.TPBypass(TeleportLocations.PrisonEntrance)
+	elseif cmd("cafe") or cmd("cafeteria") then
+		CoreFunctions.TPBypass(TeleportLocations.Cafeteria)
+	elseif cmd("carspawn") then
+		CoreFunctions.TPBypass(TeleportLocations.CarSpawn)
+	elseif cmd("policecarspawn") or cmd("copcarspawn") or cmd("guardcarspawn") then
+		CoreFunctions.TPBypass(TeleportLocations.PoliceCarSpawn)
+	elseif cmd("yard") then
+		CoreFunctions.TPBypass(TeleportLocations.Yard)
+	elseif cmd("sewers") then
+		CoreFunctions.TPBypass(TeleportLocations.Sewers)
+	elseif cmd("guardroom") or cmd("coproom") or cmd("policeroom") then
+		CoreFunctions.TPBypass(TeleportLocations.GuardRoom)
+	elseif cmd("breakroom") then
+		CoreFunctions.TPBypass(TeleportLocations.BreakRoom)
+	elseif cmd("roof") then
+		CoreFunctions.TPBypass(TeleportLocations.Roof)
 	else
 		Notif("Error", tostring(Args[1]) .. " is not a valid command.")
 	end
@@ -1807,7 +2021,13 @@ AddList("m4 / m4a1", "Obtain the gun M4A1 (REQUIRES GAMEPASS)", false) --V
 AddList("fal", "Obtain the gun FAL (REQUIRES GAMEPASS)", false) --V
 AddList("sniper / m700", "Obtain the gun Sniper (REQUIRES GAMEPASS)", false) --V
 AddList("revolver / pistol", "Obtain the gun Revolver (REQUIRES GAMEPASS)", false) --V
-AddList("autoguns / ag [true/false optional]","Gives you all guns on respawn",false)
+AddList("autom4 / autom4a1 / am4 [true/false optional]","Gives you m4a1 on respawn",false)
+AddList("automp / automp5 / amp [true/false optional]","Gives you mp5 on respawn",false)
+AddList("autoak / autoak47 / aak [true/false optional]","Gives you ak47 on respawn",false)
+AddList("autorem / autoremington / autoshutgun / arem [true/false optional]","gives you remington on respawn",false)
+AddList("autofal / afal [true/false optional]","Gives you fal on respawn",false)
+AddList("autosniper / autom700 / am700 [true/false optional]","Gives you sniper on respawn",false)
+AddList("autorev / auto revolver / arev [true/false optional]","Gives you revolver on respawn")
 AddList("autoreload / ar [true/false optional]","Makes your gun reload automatically so you don't have to click again or press R",false)
 AddList("autogunmod / automod / am / agm [true/false optional]","Mods all your guns automatically",false)
 AddList("firerate / fr [number]","Changes all guns FireRate",false)
@@ -1817,6 +2037,23 @@ AddList("spreadradius / spread / sr [number]","Makes it so your guns bullets is 
 AddList("accuraterange / arg [true/false optional]","Makes your guns more accurate at far ranges",false)
 AddList("reloadtime / rt","Changes how long your guns take to reload",false)
 AddList("range / rg","Changes how far your bullets can go",false)
+AddList("TELEPORT CMDS",false,true)
+AddList("nexus / nex","Teleports you to nexus",false)
+AddList("jailcells / cells","Teleports you to cells",false)
+AddList("secretdoor / door","Teleports you to secret door",false)
+AddList("crimbase / criminalbase","Teleports you to criminal base",false)
+AddList("watchtower1","Teleports you to watch tower 1",false)
+AddList("watchtower2","Teleports you to watch tower 2",false)
+AddList("watchtower3","Teleports you to watch tower 3",false)
+AddList("prisonentrance / entrance","Teleports you to prison entrance",false)
+AddList("cafe / cafeteria","Teleports you to cafeteria",false)
+AddList("carspawn","Teleports you to car spawn",false)
+AddList("policecarspawn / copcarspawn / guardcarspawn","Teleports you to police car spawn",false)
+AddList("yard","Teleports you to yard",false)
+AddList("sewers","Teleports you to sewers",false)
+AddList("guardroom / coproom / policeroom","Teleports you to guard room",false)
+AddList("breakroom","Teleports you to break room",false)
+AddList("roof","teleports you to roof",false)
 AddList("SURVIVAL CMDS",false,true)
 AddList("autore / are [true/false optional]","Makes you spawn in the position you died",false)
 AddList("antitase / at [true/false optional]","Makes you basically immune to tases",false)
