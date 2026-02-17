@@ -1968,7 +1968,7 @@ local OnCommand = function(text)
 		else
 			PrizzSettings.LoopedCmds.Esp = StringToBool(Args[2])
 		end
-		Notif("Esp","Esp is now: "..tostring(PrizzSettings.LoopedCmds.Esp))
+		Notif("Esp","Esp is now: "..tostring(PrizzSettings.LoopedCmds.Esp),3)
 	else
 		Notif("Error", tostring(Args[1]) .. " is not a valid command.")
 	end
