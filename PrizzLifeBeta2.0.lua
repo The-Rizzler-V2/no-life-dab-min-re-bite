@@ -112,6 +112,7 @@ local PrizzSettings = {
 		ChargeTime = 0,
 		SpreadRadius = 0,
 	},
+	Invis = false,
 }
 -- DEFAULT SETTINGS --
 
@@ -868,6 +869,7 @@ local GunLocations = {
 }
 -- GUN LOCATIONS --
 
+-- TELEPORTATION STUFF --
 local TeleportLocations = {
 	Houses = CFrame.new(-294, 54, 2485),
 	CrimBase = CFrame.new(-930, 94, 2055),
@@ -887,6 +889,7 @@ local TeleportLocations = {
 	WatchTowerThree = CFrame.new(503.983, 125.840, 2071.151),
 	Roof = CFrame.new(951.751, 134.812, 2252.351),
 }
+-- TELEPORTATION STUFF --
 
 -- ITEM LOCATIONS --
 -- Item Locations Table
@@ -929,6 +932,82 @@ local connections = {};
 local LocPL = {
 }
 
+-- INVISIBILITY STUFF --
+local player = Variables.player
+local InvisPos = Vector3.new(-25.95, 84, 3537.55)
+
+local function SetCharTrans(char, trans): ()
+	for _, des in pairs(char:GetDescendants()) do
+		if des:IsA("BasePart") or des:IsA("Decal") then
+			if des.Name ~= "HumanoidRootPart" then
+				des.Transparency = trans
+			end
+		end
+	end
+end
+
+local function GetRootPart()
+	local character = player.Character
+	if not character then
+		return nil
+	end
+	return character:FindFirstChild("HumanoidRootPart")
+end
+
+local function ToggleInvis()
+	if not player.Character then
+		warn("Character not found")
+		return
+	end
+
+	PrizzSettings.Invis = not PrizzSettings.Invis
+
+	if PrizzSettings.Invis == true then
+		local humanoidRootPart = GetRootPart()
+		if not humanoidRootPart then
+			warn("HumanoidRootPart not found")
+			return
+		end
+
+		local savedPosition = humanoidRootPart.CFrame
+
+		player.Character:MoveTo(InvisPos)
+		task.wait(0.15)
+
+		local seat = Instance.new("Seat")
+		seat.Name = "invischair"
+		seat.Anchored = false
+		seat.CanCollide = false
+		seat.Transparency = 1
+		seat.Position = InvisPos
+		seat.Parent = workspace
+
+		local weld = Instance.new("Weld")
+		weld.Part0 = seat
+		weld.Part1 = player.Character:FindFirstChild("Torso") or player.Character:FindFirstChild("UpperTorso")
+		weld.Parent = seat
+
+		task.wait()
+		seat.CFrame = savedPosition
+
+		SetCharTrans(player.Character, 0.5)
+
+		Notif("Invisibility","Invisibility is now: true",3)
+	else
+		local invisChair = workspace:FindFirstChild("invischair")
+		if invisChair then
+			invisChair:Destroy()
+		end
+
+		if player.Character then
+			SetCharTrans(player.Character, 0)
+		end
+		
+		Notif("Invisibility","Invisibility is now: false",3)
+	end
+end
+-- INVISIBILITY STUFF --
+
 -- DEBUG --
 -- Debug functions
 local Debug = {
@@ -945,6 +1024,7 @@ local Debug = {
 }
 -- DEBUG --
 
+-- TELEPORT BYPASS --
 local tpbypassdb = false
 local staytpdb = false
 local tpqueue = {}
@@ -1027,6 +1107,7 @@ task.spawn(function()
 		end)
 	end
 end)
+-- TELEPORT BYPASS --
 
 -- CORE FUNCTIONS --
 -- Core Functions Table
@@ -1101,7 +1182,6 @@ local CoreFunctions = {
 		end
 	end;
 }
--- CORE FUNCTIONS --
 
 local antitazedb = false
 local rdb = false
@@ -1149,6 +1229,7 @@ CoreFunctions.UnloadScript = function()
 	tpqueue = {}
 	print("Unload Successful")
 end
+-- CORE FUNCTIONS --
 
 -- LIGHT FUNCTIONS --
 -- LightFunctions Table
@@ -1363,6 +1444,7 @@ LightFunctions.ModGuns = function(Name,Arg,DoNotif)
 end
 -- LIGHT FUNCTIONS --
 
+-- LOOP/CONNECTION STUFF --
 local function reloadgun()
 	task.spawn(function()
 		for _, f in next, getgc(true) do
@@ -1540,7 +1622,9 @@ autogunscon = Variables.player.CharacterAdded:Connect(function(c)
 		LightFunctions.GiveGun("M4A1")
 	end
 end)
+-- LOOP/CONNECTION STUFF --
 
+-- HELPFUL FUNCTIONS --
 function StringToBool(str)
 	str = str:lower()
 	if str == "true" then
@@ -1551,7 +1635,9 @@ function StringToBool(str)
 		return nil
 	end
 end
+-- HELPFUL FUNCTIONS --
 
+-- ESP LIBRARY --
 local EspLib = {}
 
 EspLib.AddEsp = function(char)
@@ -1616,6 +1702,7 @@ task.spawn(function()
 		end
 	end
 end)
+-- ESP LIBRARY
 
 
 -- COMMANDS FUNCTIONS --
@@ -1963,6 +2050,8 @@ local OnCommand = function(text)
 			PrizzSettings.LoopedCmds.Esp = StringToBool(Args[2])
 		end
 		Notif("Esp","Esp is now: "..tostring(PrizzSettings.LoopedCmds.Esp),3)
+	elseif cmd("invis") or cmd("invisible") then
+		ToggleInvis()
 	else
 		Notif("Error", tostring(Args[1]) .. " is not a valid command.")
 	end
@@ -2057,8 +2146,9 @@ AddList("roof","teleports you to roof",false)
 AddList("SURVIVAL CMDS",false,true)
 AddList("autore / are [true/false optional]","Makes you spawn in the position you died",false)
 AddList("antitase / at [true/false optional]","Makes you basically immune to tases",false)
+AddList("invis / vis","Toggles invisibility (All the invisibility commands for prison life use the same method which is be underground)",false)
 AddList("VISUAL CMDS",false,true)
-AddList("esp","Makes you see other players through walls",false)
+AddList("esp [true/false optional]","Makes you see other players through walls",false)
 if (PrizzSettings.ACBypass or (PrizzSettings.Debug.Active and PrizzSettings.Debug.ACBypass)) then
 	AddList("TEAM CMDS", false, true) --TEAM CMDS
 	AddList("guard / guards / gu", "Alias to team guards", false) --V
