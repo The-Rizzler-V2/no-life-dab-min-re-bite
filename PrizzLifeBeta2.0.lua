@@ -822,21 +822,22 @@ local Variables = {
 -- EVENTS --
 -- Events Table
 local Events = {
-	-- Team Event
-	TeamEve = Services.rstorage.Remotes:FindFirstChild("RequestTeamChange");
-	-- Item Event
-	ItemEve = Services.rstorage.Remotes:FindFirstChild("InteractWithItem");
-	TaseEve = game:GetService("ReplicatedStorage").GunRemotes.PlayerTased;
+  -- Team Event
+  TeamEve = Services.rstorage.Remotes:FindFirstChild("RequestTeamChange");
+  -- Item Event
+  ItemEve = Services.rstorage.Remotes:FindFirstChild("InteractWithItem");
+  -- Tase Event
+  TaseEve = Services.rstorage.GunRemotes:FindFirstChild("PlayerTased");
+  -- Melee Event
+  MelEve = Services.rstorage:FindFirstChild("meleeEvent");
+  -- Shoot Event
+  ShEve = Services.rstorage.GunRemotes:FindFirstChild("ShootEvent");
+  -- Reload Event
+  RelEve = Services.rstorage.GunRemotes:FindFirstChild("FuncReload");
+  -- Arrest Event
+  ArrEve = Services.rstorage.Remotes:FindFirstChild("ArrestPlayer");
 }
 -- EVENTS --
-
---[[
-local Event = game:GetService("ReplicatedStorage").Remotes.RequestTeamChange
-Event:InvokeServer(
-    game:GetService("Teams").Inmates,
-    1
-)
---]]
 
 -- POSITIONS --
 local Positions = {
