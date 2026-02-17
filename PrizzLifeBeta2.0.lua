@@ -1605,10 +1605,10 @@ task.spawn(function()
 		end
 		for _, plrs in pairs(Services.players:GetPlayers()) do
 			local char = plrs.Character or plrs.CharacterAdded:Wait()
-			EspLib.UpdateEsp(char)
 			if PrizzSettings.LoopedCmds.Esp == true then
 				if plrs.UserId ~= Variables.player.UserId then
 					EspLib.AddEsp(char)
+					EspLib.UpdateEsp(char)
 				end
 			else
 				EspLib.RemoveEsp(char)
