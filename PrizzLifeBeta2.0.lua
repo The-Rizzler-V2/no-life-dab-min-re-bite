@@ -42,7 +42,7 @@ local PromptUser = function(Title, Text, Duration, Button1, Button2, DaCallback,
 end
 
 -- GAME CHECK
-if game.PlaceId ~= 155615604 then
+if game.GameId ~= 73885730 then -- uses universe id now so vc game is also supported
 	print("Wrong Game, join Prison Life.")
 	return
 end
@@ -822,20 +822,20 @@ local Variables = {
 -- EVENTS --
 -- Events Table
 local Events = {
-  -- Team Event
-  TeamEve = Services.rstorage.Remotes:FindFirstChild("RequestTeamChange");
-  -- Item Event
-  ItemEve = Services.rstorage.Remotes:FindFirstChild("InteractWithItem");
-  -- Tase Event
-  TaseEve = Services.rstorage.GunRemotes:FindFirstChild("PlayerTased");
-  -- Melee Event
-  MelEve = Services.rstorage:FindFirstChild("meleeEvent");
-  -- Shoot Event
-  ShEve = Services.rstorage.GunRemotes:FindFirstChild("ShootEvent");
-  -- Reload Event
-  RelEve = Services.rstorage.GunRemotes:FindFirstChild("FuncReload");
-  -- Arrest Event
-  ArrEve = Services.rstorage.Remotes:FindFirstChild("ArrestPlayer");
+	-- Team Event
+	TeamEve = Services.rstorage.Remotes:FindFirstChild("RequestTeamChange");
+	-- Item Event
+	ItemEve = Services.rstorage.Remotes:FindFirstChild("InteractWithItem");
+	-- Tase Event
+	TaseEve = Services.rstorage.GunRemotes:FindFirstChild("PlayerTased");
+	-- Melee Event
+	MelEve = Services.rstorage:FindFirstChild("meleeEvent");
+	-- Shoot Event
+	ShEve = Services.rstorage.GunRemotes:FindFirstChild("ShootEvent");
+	-- Reload Event
+	RelEve = Services.rstorage.GunRemotes:FindFirstChild("FuncReload");
+	-- Arrest Event
+	ArrEve = Services.rstorage.Remotes:FindFirstChild("ArrestPlayer");
 }
 -- EVENTS --
 
@@ -998,7 +998,7 @@ local function ToggleInvis()
 		if player.Character then
 			SetCharTrans(player.Character, 0)
 		end
-		
+
 		Notif("Invisibility","Invisibility is now: false",3)
 	end
 end
