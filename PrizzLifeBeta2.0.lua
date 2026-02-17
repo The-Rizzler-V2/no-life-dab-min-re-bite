@@ -1571,15 +1571,25 @@ EspLib.UpdateEsp = function(char)
 	if char:FindFirstChild("ESP_HL") then
 		if Services.players:GetPlayerFromCharacter(char) then
 			local plar = Services.players:GetPlayerFromCharacter(char)
+			local hl = char:FindFirstChild("ESP_HL")
 			hl.FillColor = plar.TeamColor.Color
 			hl.OutlineColor = plar.TeamColor.Color
 		end
+	else
+		local hl = Instance.new("Highlight")
+		hl.Name = "ESP_HL"
+		if Services.players:GetPlayerFromCharacter(char) then
+			local plar = Services.players:GetPlayerFromCharacter(char)
+			hl.FillColor = plar.TeamColor.Color
+			hl.OutlineColor = plar.TeamColor.Color
+		end
+		hl.Parent = char
 	end
 end
 
 EspLib.RemoveEsp = function(char)
 	if char:FindFirstChild("ESP_HL") then
-		char["ESP_HL"]:Destroy()
+		char:FindFirstChild("ESP_HL"):Destroy()
 	end
 end
 
