@@ -1709,22 +1709,6 @@ local OnCommand = function(text)
 		task.spawn(function()
 			if toggle == true then
 				LightFunctions.GiveGun("M4A1")
-				task.wait(2)
-				LightFunctions.GiveGun("AK47")
-				task.wait(2)
-				if game.Players.LocalPlayer.Team.Name == "Guards" then
-					LightFunctions.GiveGun("RemingtonGuards")
-				elseif game.Players.LocalPlayer.Team.Name == "Inmates" then
-					LightFunctions.GiveGun("RemingtonGuards")
-				elseif game.Players.LocalPlayer.Team.Name == "Criminals" then 
-					LightFunctions.GiveGun("RemingtonCrim")
-				end
-				task.wait(2)
-				LightFunctions.GiveGun("Sniper")
-				task.wait(2)
-				LightFunctions.GiveGun("Revolver")
-				task.wait(2)
-				LightFunctions.GiveGun("MP5")
 			end
 		end)
 		Notif("Auto Guns","Auto M4A1 is now: "..tostring(toggle),3)
