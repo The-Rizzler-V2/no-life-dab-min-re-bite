@@ -71,13 +71,13 @@ Theres more features you can check out!
 
 ## Loadstring
 
-### Rewrite
+### Rewrite (Mostly Recommended if you want the one we are working on mostly currently rn)
 
 ```lua
 loadstring(game:HttpGet("https://raw.githubusercontent.com/The-Rizzler-V2/no-life-dab-min-re-bite/refs/heads/main/Main/Beta/PrizzLifeBeta_ReWrite.lua"))()
 ```
 
-### Beta
+### Beta (Recommended if you want features old features that may be broken or not idk)
 
 ```lua
 loadstring(game:HttpGet("https://raw.githubusercontent.com/The-Rizzler-V2/no-life-dab-min-re-bite/refs/heads/main/Main/Beta/PrizzLifeBeta.lua"))()
@@ -86,5 +86,5 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/The-Rizzler-V2/no-lif
 ### Normal (Outdated AF)
 
 ```lua
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/The-Rizzler-V2/no-life-dab-min-re-bite/refs/heads/main/Main/Main/PrizzLifeMain.lua"))()
 ```
