@@ -1781,6 +1781,10 @@ local OnCommand = function(text)
 			MainFrame.Visible = true; PLAdmin:FindFirstChild("TextButton"):Destroy()
 			Debug.deprint("Success", "Successfully reverted the GUI")
 		end
+	elseif cmd("github") or cmd("git") then
+		if PrizzSettings.ShittyExecutor == false or PrizzSettings.ShittyExecutor == nil then
+			setclipboard("https://github.com/The-Rizzler-V2/no-life-dab-min-re-bite")
+		end
 	elseif cmd("inmate") or cmd("inmates") or cmd("in") then
 		LightFunctions.ChangeTeam("Inmates")
 		Notif("OK", "Changed team to inmate.")
@@ -2237,7 +2241,7 @@ PLINIT.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 if (PrizzSettings.ACBypass or (PrizzSettings.Debug.Active and PrizzSettings.Debug.ACBypass)) then
 
 	local data1, data2, data3 =
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/nivalos0/PrizzLife/refs/heads/main/Init/TeamGuiRemake.lua"))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/The-Rizzler-V2/no-life-dab-min-re-bite/refs/heads/main/GUIs/TeamGuiRemake.lua"))()
 
 	local TeamFrame = data1
 	local CreditsFrame = data2
