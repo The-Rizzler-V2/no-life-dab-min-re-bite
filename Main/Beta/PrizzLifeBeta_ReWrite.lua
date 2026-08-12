@@ -2240,7 +2240,7 @@ PLINIT.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 if (PrizzSettings.ACBypass or (PrizzSettings.Debug.Active and PrizzSettings.Debug.ACBypass)) then
 
-	local data1, data2, data3 = loadstring(game:HttpGet("https://raw.githubusercontent.com/The-Rizzler-V2/no-life-dab-min-re-bite/refs/heads/main/GUI's/TeamGuiRemake.lua"))()
+	local data1, data2, data3 = loadstring(game:HttpGet("https://raw.githubusercontent.com/The-Rizzler-V2/no-life-dab-min-re-bite/refs/heads/main/GUIs/TeamGuiRemake.lua"))()
 
 	local TeamFrame = data1
 	local CreditsFrame = data2
