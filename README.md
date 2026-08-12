@@ -74,7 +74,7 @@ Theres more features you can check out!
 ### Rewrite
 
 ```lua
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/The-Rizzler-V2/no-life-dab-min-re-bite/refs/heads/main/Main/Beta/PrizzLifeBeta_ReWrite.lua"))()
 ```
 
 ### Beta
@@ -83,7 +83,7 @@ Theres more features you can check out!
 loadstring(game:HttpGet("https://raw.githubusercontent.com/The-Rizzler-V2/no-life-dab-min-re-bite/refs/heads/main/Main/Beta/PrizzLifeBeta.lua"))()
 ```
 
-### Normal
+### Normal (Outdated AF)
 
 ```lua
 
