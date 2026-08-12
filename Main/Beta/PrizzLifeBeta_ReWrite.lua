@@ -1,6 +1,10 @@
 --[[ PrizzLife V2.0 ReWrite, made by Riotscripter, Nivalos, and Fred.
 This is an entire ReWrite
 
+-- ELLIE --
+We love you Ellie, you might not be physically present, but you will always be in our hearts. Clearly Vlaair didn't care enough about you to continue your legacy, this project is all thanks to you. You will be remembered FOREVER.❤️🕊️
+-- ELLIE --
+
 -- REWRITE --
 ReWrite:
 Full ReWrite of everything.
