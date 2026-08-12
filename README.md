@@ -71,12 +71,6 @@ Theres more features you can check out!
 
 ## Loadstring
 
-### Version picker
-
-```lua
--- soon
-```
-
 ### Rewrite
 
 ```lua
@@ -86,7 +80,7 @@ Theres more features you can check out!
 ### Beta
 
 ```lua
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/The-Rizzler-V2/no-life-dab-min-re-bite/refs/heads/main/Main/Beta/PrizzLifeBeta.lua"))()
 ```
 
 ### Normal
