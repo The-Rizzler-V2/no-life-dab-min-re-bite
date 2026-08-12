@@ -1783,7 +1783,7 @@ local OnCommand = function(text)
 		end
 	elseif cmd("github") or cmd("git") then
 		if PrizzSettings.ShittyExecutor == false or PrizzSettings.ShittyExecutor == nil then
-			setclipboard("https://github.com/The-Rizzler-V2/no-life-dab-min-re-bite")
+			ExecTests.CLIPA("https://github.com/The-Rizzler-V2/no-life-dab-min-re-bite")
 		end
 	elseif cmd("inmate") or cmd("inmates") or cmd("in") then
 		LightFunctions.ChangeTeam("Inmates")
@@ -2213,7 +2213,7 @@ if (PrizzSettings.ACBypass or (PrizzSettings.Debug.Active and PrizzSettings.Debu
 	AddList("criminal / criminals / cr", "Alias to team criminals", false) --V
 	AddList("neutral / neutrals / ne", "Alias to team neutrals", false) --V
 else
-	AddList("TEAM CMDS (DISABLED)", false, true) --TEAM CMDS
+	AddList("TEAM CMDS (DISABLED FOR SAFETY)", false, true) --TEAM CMDS
 end
 --NewToggleList("LocalPlayer_RunSpeed", "Default value is: 24", "click", function(arg)
 --local str = tonumber(arg)
@@ -2241,7 +2241,7 @@ PLINIT.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 if (PrizzSettings.ACBypass or (PrizzSettings.Debug.Active and PrizzSettings.Debug.ACBypass)) then
 
 	local data1, data2, data3 =
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/The-Rizzler-V2/no-life-dab-min-re-bite/refs/heads/main/GUIs/TeamGuiRemake.lua"))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/The-Rizzler-V2/no-life-dab-min-re-bite/refs/heads/main/GUI's/TeamGuiRemake.lua"))()
 
 	local TeamFrame = data1
 	local CreditsFrame = data2
@@ -2255,11 +2255,7 @@ if (PrizzSettings.ACBypass or (PrizzSettings.Debug.Active and PrizzSettings.Debu
 
 	InmateBtn.Activated:Connect(
 		function()
-			if #Services.teams.Inmates:GetPlayers() > 7 then
-				Notif("Cannot join team.", "Inmates team is full!", 6)
-			else
-				CoreFunctions.TeamFunction("Inmates", false)
-			end
+			CoreFunctions.TeamFunction("Inmates", false)
 		end)
 
 	GuardBtn.Activated:Connect(
@@ -2276,14 +2272,10 @@ if (PrizzSettings.ACBypass or (PrizzSettings.Debug.Active and PrizzSettings.Debu
 			local plr = Services.players.LocalPlayer
 			local char = plr.Character
 			local hrp = char.HumanoidRootPart
-			if #Services.teams.Inmates:GetPlayers() > 7 then
-				Notif("Cannot join team.", "Inmates team is full!", 6)
-			else
-				CoreFunctions.TeamFunction("Inmates", false)
-				task.wait(0.5)
-				local hrp = Services.players.LocalPlayer.Character.HumanoidRootPart
-				hrp.CFrame = Positions.CrimPos
-			end
+			CoreFunctions.TeamFunction("Inmates", false)
+			task.wait(0.5)
+			local hrp = Services.players.LocalPlayer.Character.HumanoidRootPart
+			hrp.CFrame = Positions.CrimPos
 		end
 	)
 
