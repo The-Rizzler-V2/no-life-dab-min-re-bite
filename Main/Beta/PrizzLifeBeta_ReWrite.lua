@@ -1,7 +1,6 @@
 --[[ PrizzLife V2.0 ReWrite, made by Riotscripter, Nivalos, and Fred.
 This is an entire ReWrite
 
-
 -- REWRITE --
 ReWrite:
 Full ReWrite of everything.
@@ -1080,7 +1079,7 @@ function AnchorRoot(root,bool)
 	root.Anchored = bool
 end
 
-local function tpbypass(pos)
+local function tpbypass(root,pos)
 	local startpos = root.CFrame
 	local dist = (pos.Position - startpos.Position).Magnitude
 	local dur = dist / 1
@@ -1121,8 +1120,8 @@ task.spawn(function()
 				local ogcf = root.CFrame
 				local goingtocf = tpqueue[1]
 				AnchorRoot(root,true)
-				tpbypass(ogcf - Vector3.new(0,10,0))
-				tpbypass(goingtocf - Vector3.new(0,10,0))
+				tpbypass(root,ogcf - Vector3.new(0,10,0))
+				tpbypass(root,goingtocf - Vector3.new(0,10,0))
 				staytpdb = true
 				if isaonetp == false then
 					local part = Instance.new("Part")
@@ -1135,10 +1134,11 @@ task.spawn(function()
 					AnchorRoot(root,true)
 					part:Destroy()
 					staytpdb = false
-					tpbypass(ogcf - Vector3.new(0,10,0))
-					tpbypass(ogcf)
+					tpbypass(root,ogcf - Vector3.new(0,10,0))
+					tpbypass(root,ogcf)
 				else
-					tpbypass(goingtocf)
+					tpbypass(root,goingtocf)
+					staytpdb = false
 				end
 				table.remove(tpqueue,1)
 				AnchorRoot(root,false)
@@ -1756,7 +1756,7 @@ local OnCommand = function(text)
 			table.remove(Args, 1)
 		end
 	end
-	if Args[1] == "/revert" or Args[1] == Variables.CurrentPrefix .. "/revert" then
+	if Args[1] == "/revert" or Args[1] == Variables.CurrentPrefix .. "revert" then
 		Variables.CurrentPrefix = "?"; MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 		savedClosedFramePosition = UDim2.new(0.499449551, 0, 0.128650904, 0)
 		if not MainFrame.Visible then
@@ -1778,10 +1778,6 @@ local OnCommand = function(text)
 			Debug.deprint("Success", "Successfully reverted the GUI")
 		end
 	elseif cmd("inmate") or cmd("inmates") or cmd("in") then
-		if #Services.teams.Inmates:GetPlayers() > 6 then
-			Notif("Error", "Inmates team full!")
-			return
-		end
 		LightFunctions.ChangeTeam("Inmates")
 		Notif("OK", "Changed team to inmate.")
 	elseif cmd("guard") or cmd("guards") or cmd("gu") then
@@ -2046,24 +2042,34 @@ local OnCommand = function(text)
 		end
 		LightFunctions.ModGuns("AutoFire",PrizzSettings.GunMods.AutoFire,true)
 	elseif cmd("nexus") or cmd("nex") then
+		isaonetp = true
 		CoreFunctions.TPBypass(TeleportLocations.Nexus)
 	elseif cmd("jailcells") or cmd("cells") then
+		isaonetp = true
 		CoreFunctions.TPBypass(TeleportLocations.JailCells)
 	elseif cmd("secretdoor") or cmd("door") then
+		isaonetp = true
 		CoreFunctions.TPBypass(TeleportLocations.SecretDoor)
 	elseif cmd("crimbase") or cmd("criminalbase") then
+		isaonetp = true
 		CoreFunctions.TPBypass(TeleportLocations.CrimBase)
 	elseif cmd("watchtower1") then
+		isaonetp = true
 		CoreFunctions.TPBypass(TeleportLocations.WatchTowerOne)
 	elseif cmd("watchtower2") then
+		isaonetp = true
 		CoreFunctions.TPBypass(TeleportLocations.WatchTowerTwo)
 	elseif cmd("watchtower3") then
+		isaonetp = true
 		CoreFunctions.TPBypass(TeleportLocations.WatchTowerThree)
 	elseif cmd("prisonentrance") or cmd("entrance") then
+		isaonetp = true
 		CoreFunctions.TPBypass(TeleportLocations.PrisonEntrance)
 	elseif cmd("cafe") or cmd("cafeteria") then
+		isaonetp = true
 		CoreFunctions.TPBypass(TeleportLocations.Cafeteria)
 	elseif cmd("carspawn") or cmd("car") then
+		isaonetp = true
 	  if Services.players.LocalPlayer.Team == "Criminals" and Services.players.LocalPlayer.Team.Name == "Criminals" then
 		CoreFunctions.TPBypass(TeleportLocations.CarSpawn)
 	  elseif Services.players.LocalPlayer.Team == "Inmates" and Services.players.LocalPlayer.Team.Name == "Inmates" then
@@ -2072,14 +2078,19 @@ local OnCommand = function(text)
 	     CoreFunctions.TPBypass(TeleportLocations.PoliceCarSpawn)
 	  end
 	elseif cmd("yard") then
+		isaonetp = true
 		CoreFunctions.TPBypass(TeleportLocations.Yard)
 	elseif cmd("sewers") then
+		isaonetp = true
 		CoreFunctions.TPBypass(TeleportLocations.Sewers)
 	elseif cmd("guardroom") or cmd("coproom") or cmd("policeroom") then
+		isaonetp = true
 		CoreFunctions.TPBypass(TeleportLocations.GuardRoom)
 	elseif cmd("breakroom") then
+		isaonetp = true
 		CoreFunctions.TPBypass(TeleportLocations.BreakRoom)
 	elseif cmd("roof") then
+		isaonetp = true
 		CoreFunctions.TPBypass(TeleportLocations.Roof)
 	elseif cmd("esp") then
 		if not Args[2] or StringToBool(Args[2]) ~= true or StringToBool(Args[2]) ~= false then
