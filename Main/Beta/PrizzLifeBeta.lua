@@ -1,6 +1,10 @@
 --[[ PrizzLife V2.0 Beta ReWrite, made by Nivalos, influenced by Vlaair, and EllieXmln.
 This script is getting better, and not as broken as before.
 
+-- ELLIE --
+We love you Ellie, you might not be physically present, but you will always be in our hearts. Clearly Vlaair didn't care enough about you to continue your legacy, this project is all thanks to you. You will be remembered FOREVER.❤️🕊️
+-- ELLIE --
+
 Update Log 12:
 Bypass for Aestheticals Shitty AC attempt.
 --]]
