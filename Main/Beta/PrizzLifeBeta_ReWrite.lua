@@ -1074,9 +1074,34 @@ local tpbypassdb = false;
 local staytpdb = false;
 local tpqueue = {};
 local stopqueue = false;
+local isaonetp = false;
 
 function AnchorRoot(root,bool)
 	root.Anchored = bool
+end
+
+local function tpbypass(pos)
+	local startpos = root.CFrame
+	local dist = (pos.Position - startpos.Position).Magnitude
+	local dur = dist / 1
+	local starttime = tick()
+	local isdone = false
+
+	local connection
+	connection = Services.rsv.RenderStepped:Connect(function()
+		local alpha = math.clamp((tick() - starttime) / dur, 0, 1)
+		alpha = 1 - (1 - alpha) ^ 2
+
+		root.CFrame = startpos:Lerp(pos, alpha)
+
+		if alpha >= 1 then
+			isdone = true
+			connection:Disconnect()
+		end
+	end)
+	while isdone == false do
+		task.wait()
+	end
 end
 
 task.spawn(function()
@@ -1096,23 +1121,28 @@ task.spawn(function()
 				local ogcf = root.CFrame
 				local goingtocf = tpqueue[1]
 				AnchorRoot(root,true)
-				root.CFrame = ogcf - Vector3.new(0,10,0)
-				root.CFrame = goingtocf - Vector3.new(0,10,0)
+				tpbypass(ogcf - Vector3.new(0,10,0))
+				tpbypass(goingtocf - Vector3.new(0,10,0))
 				staytpdb = true
-				local part = Instance.new("Part")
-				part.Anchored = true
-				part.Size = Vector3.new(3,0.5,3)
-				part.CFrame = goingtocf - Vector3.new(0,13.5,0)
-				part.Parent = workspace
-				AnchorRoot(root,false)
-				task.wait(1)
-				AnchorRoot(root,true)
-				part:Destroy()
-				staytpdb = false
-				root.CFrame = ogcf - Vector3.new(0,10,0)
-				root.CFrame = ogcf + Vector3.new(0,10,0)
+				if isaonetp == false then
+					local part = Instance.new("Part")
+					part.Anchored = true
+					part.Size = Vector3.new(3,0.5,3)
+					part.CFrame = goingtocf - Vector3.new(0,13.5,0)
+					part.Parent = workspace
+					AnchorRoot(root,false)
+					task.wait(1)
+					AnchorRoot(root,true)
+					part:Destroy()
+					staytpdb = false
+					tpbypass(ogcf - Vector3.new(0,10,0))
+					tpbypass(ogcf)
+				else
+					tpbypass(goingtocf)
+				end
 				table.remove(tpqueue,1)
 				AnchorRoot(root,false)
+				isaonetp = false
 				task.wait(1)
 				tpbypassdb = false
 			end
