@@ -71,6 +71,26 @@ Theres more features you can check out!
 
 ## Loadstring
 
+### Version picker
+
 ```lua
 -- soon
+```
+
+### Rewrite
+
+```lua
+
+```
+
+### Beta
+
+```lua
+
+```
+
+### Normal
+
+```lua
+
 ```
