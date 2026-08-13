@@ -1093,7 +1093,7 @@ local function tpbypass(root,pos)
 	local connection
 	connection = Services.rsv.RenderStepped:Connect(function()
 		local alpha = math.clamp((tick() - starttime) / dur, 0, 1)
-		alpha = 1 - (1 - alpha) ^ 2
+		alpha = 1 - (1 - alpha) ^ 1.25
 
 		root.CFrame = startpos:Lerp(pos, alpha)
 
