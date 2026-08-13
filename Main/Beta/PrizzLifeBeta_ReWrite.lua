@@ -1086,7 +1086,7 @@ end
 local function tpbypass(root,pos)
 	local startpos = root.CFrame
 	local dist = (pos.Position - startpos.Position).Magnitude
-	local dur = dist / 3
+	local dur = dist / 4
 	local starttime = tick()
 	local isdone = false
 
