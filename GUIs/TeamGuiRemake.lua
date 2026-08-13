@@ -1,5 +1,5 @@
 -- New Team GUI
-local TeamFrame
+local TeamFrame, CreditsFrame = nil, nil
 local CoreGui = gethui and gethui() or cloneref and cloneref(game:GetService("CoreGui")) or game:GetService("CoreGui"):WaitForChild("RobloxApp")
 do
 local LMG2L = {};
@@ -15,8 +15,6 @@ LMG2L["TeamFrame_2"]["BackgroundColor3"] = Color3.fromRGB(55, 55, 55);
 LMG2L["TeamFrame_2"]["Size"] = UDim2.new(0.57228, 0, 0.24899, 0);
 LMG2L["TeamFrame_2"]["Position"] = UDim2.new(0.21123, 0, 0.73565, 0);
 LMG2L["TeamFrame_2"]["Name"] = [[TeamFrame]];
-
-TeamFrame = LMG2L["TeamFrame_2"]
 
 
 LMG2L["GuardBtn_3"] = Instance.new("TextButton", LMG2L["TeamFrame_2"]);
@@ -78,7 +76,7 @@ LMG2L["CreditsFrame_b"]["BackgroundColor3"] = Color3.fromRGB(65, 65, 65);
 LMG2L["CreditsFrame_b"]["Size"] = UDim2.new(0.52561, 0, 0.23201, 0);
 LMG2L["CreditsFrame_b"]["Position"] = UDim2.new(0.23825, 0, -0.14713, 0);
 LMG2L["CreditsFrame_b"]["Name"] = [[CreditsFrame]];
-
+  
 LMG2L["Ellie_c"] = Instance.new("TextLabel", LMG2L["CreditsFrame_b"]);
 LMG2L["Ellie_c"]["BorderSizePixel"] = 0;
 LMG2L["Ellie_c"]["TextSize"] = 18;
@@ -115,6 +113,7 @@ LMG2L["UICorner_f"]["CornerRadius"] = UDim.new(0, 10);
 LMG2L["UIAspectRatioConstraint_10"] = Instance.new("UIAspectRatioConstraint", LMG2L["CreditsFrame_b"]);
 LMG2L["UIAspectRatioConstraint_10"]["AspectRatio"] = 5.21951;
 
+TeamFrame = LMG2L["TeamFrame_2"]
+CreditsFrame = LMG2L["CreditsFrame_b"]
 
-
-return TeamFrame
+return TeamFrame, CreditsFrame
