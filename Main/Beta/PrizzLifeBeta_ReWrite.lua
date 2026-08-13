@@ -1078,33 +1078,29 @@ local staytpdb = false;
 local tpqueue = {};
 local stopqueue = false;
 local isaonetp = false;
+local studspersec = 7
 
 function AnchorRoot(root,bool)
 	root.Anchored = bool
 end
 
-local function tpbypass(root,pos)
-	local startpos = root.CFrame
+local function tpbypass(hrp,pos)
+	local startpos = hrp.CFrame
 	local dist = (pos.Position - startpos.Position).Magnitude
-	local dur = dist / 7
+	local dur = dist / studspersec
 	local starttime = tick()
-	local isdone = false
 
 	local connection
 	connection = Services.rsv.RenderStepped:Connect(function()
 		local alpha = math.clamp((tick() - starttime) / dur, 0, 1)
-		alpha = 1 - (1 - alpha) ^ 2
 
-		root.CFrame = startpos:Lerp(pos, alpha)
+		hrp.CFrame = startpos:Lerp(pos, alpha)
 
 		if alpha >= 1 then
-			isdone = true
 			connection:Disconnect()
+			connection = nil
 		end
 	end)
-	while isdone == false do
-		task.wait()
-	end
 end
 
 task.spawn(function()
