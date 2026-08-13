@@ -1086,14 +1086,14 @@ end
 local function tpbypass(root,pos)
 	local startpos = root.CFrame
 	local dist = (pos.Position - startpos.Position).Magnitude
-	local dur = dist / 1
+	local dur = dist / 0.5
 	local starttime = tick()
 	local isdone = false
 
 	local connection
 	connection = Services.rsv.RenderStepped:Connect(function()
 		local alpha = math.clamp((tick() - starttime) / dur, 0, 1)
-		alpha = 1 - (1 - alpha) ^ 3.5
+		alpha = 1 - (1 - alpha) ^ 2
 
 		root.CFrame = startpos:Lerp(pos, alpha)
 
