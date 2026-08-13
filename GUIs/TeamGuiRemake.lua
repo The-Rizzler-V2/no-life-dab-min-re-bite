@@ -1,6 +1,6 @@
 -- New Team GUI
 local TeamFrame, CreditsFrame = nil, nil
-local CoreGui = gethui and gethui() or cloneref and cloneref(game:GetService("CoreGui")) or game:GetService("CoreGui"):WaitForChild("RobloxApp")
+local CoreGui = gethui and gethui() or cloneref and cloneref(game:GetService("CoreGui")) or game:GetService("CoreGui"):FindFirstChild("RobloxApp") or game:GetService("Players").LocalPlayer:FindFirstChild("PlayerGui")
 do
 local LMG2L = {};
 
@@ -115,5 +115,6 @@ LMG2L["UIAspectRatioConstraint_10"]["AspectRatio"] = 5.21951;
 
 TeamFrame = LMG2L["TeamFrame_2"]
 CreditsFrame = LMG2L["CreditsFrame_b"]
+end
 
 return TeamFrame, CreditsFrame
